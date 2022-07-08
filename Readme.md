@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Irina Aleksandrova](https://up.htmlacademy.ru/react/10/user/2095159).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Быков](https://htmlacademy.ru/profile/id7107).
 
 ---
 
