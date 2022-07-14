@@ -1,4 +1,3 @@
-import React from 'react';
 import Logo from '../../components/logo/logo';
 
 function PropertyNotLogged() {
@@ -15,7 +14,7 @@ function PropertyNotLogged() {
                 <li className="header__nav-item user">
                   <a
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    href="/"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__login">Sign in</span>
@@ -214,7 +213,7 @@ function PropertyNotLogged() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <a href="/">
                     <img
                       className="place-card__image"
                       src="img/room.jpg"
@@ -253,7 +252,7 @@ function PropertyNotLogged() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
+                    <a href="/">Wood and stone place</a>
                   </h2>
                   <p className="place-card__type">Private room</p>
                 </div>
@@ -261,7 +260,7 @@ function PropertyNotLogged() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <a href="/">
                     <img
                       className="place-card__image"
                       src="img/apartment-02.jpg"
@@ -300,7 +299,7 @@ function PropertyNotLogged() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
+                    <a href="/">Canal View Prinsengracht</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -311,7 +310,7 @@ function PropertyNotLogged() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <a href="/">
                     <img
                       className="place-card__image"
                       src="img/apartment-03.jpg"
@@ -350,7 +349,7 @@ function PropertyNotLogged() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
+                    <a href="/">Nice, cozy, warm big bed apartment</a>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
