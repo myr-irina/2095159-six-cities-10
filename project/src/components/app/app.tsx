@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from '../../pages/main/Main';
 
 type AppScreenProps = {
@@ -5,7 +6,13 @@ type AppScreenProps = {
 };
 
 function App({ placesCount }: AppScreenProps) {
-  return <Main placesCount={placesCount} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main placesCount={placesCount} />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
