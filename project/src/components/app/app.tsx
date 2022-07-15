@@ -3,9 +3,9 @@ import Main from '../../pages/main/Main';
 import Login from '../../pages/login/Login';
 import Favorites from '../../pages/favorites/Favorites';
 import Room from '../../pages/room/Room';
-import PageNotFound from '../../pages/not-found-screen/not-found-screen';
 import { AppRoute, AuthorizationStatus } from '../const';
 import PrivateRoute from '../../components/private-routes/private-route';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 
 type AppScreenProps = {
   placesCount: number;
@@ -29,7 +29,7 @@ function App({ placesCount }: AppScreenProps) {
           }
         />
         <Route path={AppRoute.Room} element={<Room />} />
-        <Route path={AppRoute.PageNotFound} element={<PageNotFound />} />
+        <Route path={AppRoute.PageNotFound} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
   );
