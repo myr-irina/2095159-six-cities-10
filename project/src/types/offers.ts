@@ -1,4 +1,5 @@
 export type Offers = {
+  id: number;
   src: string;
   price: string;
   placeName: string;
