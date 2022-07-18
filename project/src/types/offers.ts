@@ -3,11 +3,9 @@ export type Offers = {
   price: string;
   placeName: string;
   placeType: string;
-  review?: string;
 };
 
-// export type Reviews = {
-//   answers: Offers[];
-//   genre: string;
-//   type: string;
-// };
+export type Reviews = {
+  placeData: Offers[];
+  review: string;
+};
