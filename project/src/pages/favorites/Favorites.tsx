@@ -208,6 +208,7 @@ function Favorites() {
           </section>
         </div>
       </main>
+
       <footer className="footer container">
         <div style={{ width: '64px', height: '33px' }}>
           <Logo />
