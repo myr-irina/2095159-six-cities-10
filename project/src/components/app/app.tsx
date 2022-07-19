@@ -6,18 +6,20 @@ import Room from '../../pages/room/Room';
 import { AppRoute, AuthorizationStatus } from '../const';
 import PrivateRoute from '../../components/private-routes/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import { Offer } from '../../types/offers';
 
 type AppScreenProps = {
   placesCount: number;
+  offers: Offer[];
 };
 
-function App({ placesCount }: AppScreenProps) {
+function App({ placesCount, offers }: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main placesCount={placesCount} />}
+          element={<Main placesCount={placesCount} offers={offers} />}
         />
         <Route path={AppRoute.Login} element={<Login />} />
         <Route

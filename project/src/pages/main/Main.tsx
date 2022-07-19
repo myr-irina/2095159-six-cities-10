@@ -1,11 +1,13 @@
 import Card from '../../components/card/Card';
 import Logo from '../../components/logo/logo';
+import { Offer } from '../../types/offers';
 
 type PlacesCountProps = {
   placesCount: number;
+  offers: Offer[];
 };
 
-function Main({ placesCount }: PlacesCountProps): JSX.Element {
+function Main({ placesCount, offers }: PlacesCountProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -114,11 +116,7 @@ function Main({ placesCount }: PlacesCountProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {offers.map((offer) => <Card offer={offer} key={offer.id} />)}
               </div>
             </section>
             <div className="cities__right-section">
