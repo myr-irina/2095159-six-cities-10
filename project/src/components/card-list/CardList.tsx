@@ -7,11 +7,13 @@ type CardListScreenProps = {
 
 function CardList({ offers }: CardListScreenProps): JSX.Element {
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <Card offer={offer} key={offer.id} />
+        <li key={offer.id}>
+          <Card offer={offer} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
