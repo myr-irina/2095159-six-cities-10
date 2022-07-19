@@ -1,4 +1,4 @@
-import Card from '../../components/card/Card';
+import CardList from '../../components/card-list/CardList';
 import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offers';
 
@@ -115,9 +115,7 @@ function Main({ placesCount, offers }: PlacesCountProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <Card offer={offer} key={offer.id} />)}
-              </div>
+              <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

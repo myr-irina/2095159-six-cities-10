@@ -5,7 +5,7 @@ type CardScreenProps = {
   offer: Offer;
 };
 
-export default function Card({offer} : CardScreenProps) {
+function Card({ offer }: CardScreenProps) {
   return (
     <article className="cities__card place-card">
       <div className="cities__image-wrapper place-card__image-wrapper">
@@ -46,3 +46,5 @@ export default function Card({offer} : CardScreenProps) {
     </article>
   );
 }
+
+export default Card;
