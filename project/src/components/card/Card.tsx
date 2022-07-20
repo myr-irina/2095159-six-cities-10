@@ -1,13 +1,20 @@
 import { Offer } from '../../types/offer';
-
+// import { useState } from 'react';
 
 type CardScreenProps = {
   offer: Offer;
+  onMouseOver: () => void;
+  isActive: boolean;
 };
 
-function Card({ offer}: CardScreenProps) {
+function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
+  if (isActive) {
+    // eslint-disable-next-line no-console
+    console.log('active', offer.id);
+  }
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={onMouseOver}>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="/">
           <img
@@ -35,7 +42,7 @@ function Card({ offer}: CardScreenProps) {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span style={{ width: '80%' }}></span>
-            <span className="visually-hidden">Rating {offer.rating}</span>
+            <span className="visually-hidden">Rating{offer.rating}</span>
           </div>
         </div>
         <h2 className="place-card__name">

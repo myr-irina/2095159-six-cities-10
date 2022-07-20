@@ -1,6 +1,7 @@
 import Card from '../card/Card';
 import { Offer } from '../../types/offer';
-// import { useState } from 'react';
+import { useState } from 'react';
+
 // import classNames from 'classnames';
 
 type CardListScreenProps = {
@@ -8,14 +9,16 @@ type CardListScreenProps = {
 };
 
 function CardList({ offers }: CardListScreenProps): JSX.Element {
-  // const [activeCard, setActiveCard] = useState('id');
-
+  const [isActiveCard, setIsActiveCard] = useState<number>(1);
   return (
     <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <li key={offer.id} style={{listStyleType: 'none'}}>
-          <Card offer={offer} />
-        </li>
+        <Card
+          offer={offer}
+          key={offer.id}
+          onMouseOver={() => setIsActiveCard(offer.id)}
+          isActive={isActiveCard === offer.id}
+        />
       ))}
     </ul>
   );
