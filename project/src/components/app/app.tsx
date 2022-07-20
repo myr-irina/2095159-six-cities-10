@@ -6,7 +6,8 @@ import Room from '../../pages/room/Room';
 import { AppRoute, AuthorizationStatus } from '../const';
 import PrivateRoute from '../../components/private-routes/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Offer } from '../../types/offers';
+import { Offer } from '../../types/offer';
+
 
 type AppScreenProps = {
   placesCount: number;
@@ -26,7 +27,7 @@ function App({ placesCount, offers }: AppScreenProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <Favorites />
+              <Favorites offers={offers} />
             </PrivateRoute>
           }
         />

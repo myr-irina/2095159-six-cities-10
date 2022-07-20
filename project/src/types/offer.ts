@@ -5,4 +5,6 @@ export type Offer = {
   placeName: string;
   placeType: string;
   rating: string;
+  review?: string;
 };
+

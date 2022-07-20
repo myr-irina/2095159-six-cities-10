@@ -1,4 +1,4 @@
-import { Offer } from '../types/offers';
+import { Offer } from '../types/offer';
 
 export const offers: Offer[] = [
   {
@@ -8,6 +8,7 @@ export const offers: Offer[] = [
     placeName: 'Canal View Prinsengracht',
     placeType: 'Apartment',
     rating: '5',
+    review: 'Nice and cozy',
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const offers: Offer[] = [
     placeName: 'Canal View Prinsengracht',
     placeType: 'Apartment',
     rating: '4',
+    review: 'Nice and cozy',
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ export const offers: Offer[] = [
     placeName: 'Canal View Prinsengracht',
     placeType: 'Apartment',
     rating: '4',
+    review: 'Nice and cozy',
   },
   {
     id: 4,
@@ -32,5 +35,6 @@ export const offers: Offer[] = [
     placeName: 'Canal View Prinsengracht',
     placeType: 'Apartment',
     rating: '4',
+    review: 'Nice and cozy',
   },
 ];

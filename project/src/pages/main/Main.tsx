@@ -1,13 +1,13 @@
 import CardList from '../../components/card-list/CardList';
 import Logo from '../../components/logo/logo';
-import { Offer } from '../../types/offers';
+import { Offer } from '../../types/offer';
 
-type PlacesCountProps = {
+type MainScreenProps = {
   placesCount: number;
   offers: Offer[];
 };
 
-function Main({ placesCount, offers }: PlacesCountProps): JSX.Element {
+function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
