@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
-// import { useState } from 'react';
 
 type CardScreenProps = {
   offer: Offer;
@@ -45,9 +45,9 @@ function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
             <span className="visually-hidden">Rating{offer.rating}</span>
           </div>
         </div>
-        <h2 className="place-card__name">
-          <a href="/">{offer.placeName}</a>
-        </h2>
+        <Link to={`/offer/${offer.id}`}>
+          <h2 className="place-card__name">{offer.placeName}</h2>
+        </Link>
         <p className="place-card__type">{offer.placeType}</p>
       </div>
     </article>

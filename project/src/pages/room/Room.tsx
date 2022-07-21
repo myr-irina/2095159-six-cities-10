@@ -1,20 +1,24 @@
 import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { Offer } from '../../types/offer';
 
-function Room(): JSX.Element {
+type RoomScreenProps = {
+  offers: Offer[];
+};
+
+function Room({offers}: RoomScreenProps): JSX.Element {
   const params = useParams();
+  const offer = offers.find((item) => item.id === Number(params.id));
+  // eslint-disable-next-line no-console
+  console.log(offer);
 
-  if (params.id) {
-    // eslint-disable-next-line no-console
-    console.log(params);
-  }
   return (
     <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <div style={{ width: '81px', height: '41px' }}>
+              <div className="" style={{ width: '81px', height: '41px' }}>
                 <Logo />
               </div>
             </div>

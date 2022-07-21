@@ -8,7 +8,6 @@ import PrivateRoute from '../../components/private-routes/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Offer } from '../../types/offer';
 
-
 type AppScreenProps = {
   placesCount: number;
   offers: Offer[];
@@ -31,7 +30,7 @@ function App({ placesCount, offers }: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Room} element={<Room />} />
+        <Route path={AppRoute.Room} element={<Room offers={offers} />} />
         <Route path={AppRoute.PageNotFound} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
