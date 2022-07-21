@@ -1,14 +1,26 @@
-
 import { Offer } from '../../types/offer';
-
 
 type CardWithReviewsScreenProps = {
   offer: Offer;
+  onMouseOver: () => void;
+  isActive: boolean;
 };
 
-function CardWithReviews({offer}: CardWithReviewsScreenProps) {
+function CardWithReviews({
+  offer,
+  onMouseOver,
+  isActive,
+}: CardWithReviewsScreenProps) {
+  if (isActive) {
+    // eslint-disable-next-line no-console
+    console.log('active', offer.id);
+  }
+
   return (
-    <article className="favorites__card place-card" style={{marginBottom: '35px'}}>
+    <article
+      className="favorites__card place-card"
+      style={{ marginBottom: '35px' }}
+    >
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
@@ -17,7 +29,7 @@ function CardWithReviews({offer}: CardWithReviewsScreenProps) {
           <img
             className="place-card__image"
             src={offer.src}
-            style={{width: '150px', height: '110px'}}
+            style={{ width: '150px', height: '110px' }}
             alt="Place"
           />
         </a>

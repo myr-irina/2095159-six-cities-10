@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 type FormData = {
   rating: string;
@@ -13,26 +13,38 @@ function FeedbackForm() {
   });
   // const [isReadOnly, setIsReadOnly] = useState(true);
 
-  function handleFieldChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { name, value } = event.target;
+  function handleInputFieldChange(event: React.ChangeEvent) {
+    const target = event.target as HTMLInputElement;
+    const { name, value } = target;
     console.log(event);
     setFormData({ ...formData, [name]: value });
     // setIsReadOnly(true);
   }
 
-  function handleSubmitForm(event: React.FormEvent<HTMLFormElement>): void {
+  function handleTextAreaFieldChange(event: React.ChangeEvent) {
+    const target = (event.target as HTMLInputElement).value;
+    console.log(target);
+  }
+
+  function handleSubmitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     console.log('Form is submitted');
   }
 
   return (
-    <form className="reviews__form form" action="#" method="post" name="update">
+    <form
+      className="reviews__form form"
+      action="#"
+      method="post"
+      name="update"
+      onSubmit={(e) => handleSubmitForm(e)}
+    >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
         <input
-          onChange={handleFieldChange}
+          onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
           value={formData.rating}
@@ -50,7 +62,7 @@ function FeedbackForm() {
         </label>
 
         <input
-          onChange={handleFieldChange}
+          onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
           value={formData.rating}
@@ -68,7 +80,7 @@ function FeedbackForm() {
         </label>
 
         <input
-          onChange={handleFieldChange}
+          onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
           value={formData.rating}
@@ -86,7 +98,7 @@ function FeedbackForm() {
         </label>
 
         <input
-          onChange={handleFieldChange}
+          onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
           value={formData.rating}
@@ -104,7 +116,7 @@ function FeedbackForm() {
         </label>
 
         <input
-          onChange={handleFieldChange}
+          onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
           value={formData.rating}
@@ -122,7 +134,7 @@ function FeedbackForm() {
         </label>
       </div>
       <textarea
-        onChange={handleFieldChange}
+        onChange={handleTextAreaFieldChange}
         value={formData.review}
         className="reviews__textarea form__textarea"
         id="review"
@@ -139,7 +151,6 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          onSubmit={handleSubmitForm}
           disabled
         >
           Submit
