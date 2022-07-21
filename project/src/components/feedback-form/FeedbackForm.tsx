@@ -1,23 +1,27 @@
 /* eslint-disable no-console */
 import { useState } from 'react';
 
+type FormData = {
+  rating: string;
+  review: string;
+};
+
 function FeedbackForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     rating: '',
     review: '',
   });
   // const [isReadOnly, setIsReadOnly] = useState(true);
 
-  function handleFieldChange(event: any) {
+  function handleFieldChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const { name, value } = event.target;
     console.log(event);
     setFormData({ ...formData, [name]: value });
     // setIsReadOnly(true);
   }
 
-  function handleSubmitForm(event: any) {
+  function handleSubmitForm(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-
     console.log('Form is submitted');
   }
 
