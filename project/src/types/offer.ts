@@ -2,7 +2,7 @@ export type Offer = {
   id: number;
   bedrooms: number;
   description: string;
-  image: string;
+  images: [string] | string;
   isFavorite: boolean;
   isPremium: boolean;
   previewImage: string;

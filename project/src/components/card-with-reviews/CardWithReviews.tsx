@@ -20,6 +20,7 @@ function CardWithReviews({
     <article
       className="favorites__card place-card"
       style={{ marginBottom: '35px' }}
+      onMouseOver={onMouseOver}
     >
       <div className="place-card__mark">
         <span>Premium</span>
@@ -28,7 +29,7 @@ function CardWithReviews({
         <a href="/">
           <img
             className="place-card__image"
-            src={offer.image}
+            src={offer.images as string}
             style={{ width: '150px', height: '110px' }}
             alt="Place"
           />

@@ -22,7 +22,7 @@ function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
         <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
-            src={offer.image}
+            src={offer.images as string}
             width="260"
             height="200"
             alt="Place"
