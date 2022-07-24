@@ -8,8 +8,12 @@ type RoomScreenProps = {
 };
 
 function Room({ offers }: RoomScreenProps): JSX.Element {
-  const params = useParams();
-  const offer = offers.find((item) => item.id === Number(params.id));
+  const { id } = useParams();
+  const offer = offers.find((offerItem) => offerItem.id === Number(id));
+
+  if (!offer) {
+    return <p>No places to stay available</p>;
+  }
 
   return (
     <div className="page">
@@ -53,7 +57,7 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src={offer?.images[1]}
+                  src={offer?.images[0]}
                   alt="studio"
                 />
               </div>
@@ -114,7 +118,9 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                   >
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks{offer?.isFavorite}</span>
+                  <span className="visually-hidden">
+                    To bookmarks{offer?.isFavorite}
+                  </span>
                 </button>
               </div>
               <div className="property__rating rating">
@@ -168,8 +174,12 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">{offer?.host?.name}</span>
-                  <span className="property__user-status">{offer?.host?.isPro}</span>
+                  <span className="property__user-name">
+                    {offer?.host?.name}
+                  </span>
+                  <span className="property__user-status">
+                    {offer?.host?.isPro}
+                  </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -345,7 +355,9 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
                     <div className="place-card__price">
-                      <b className="place-card__price-value">&euro; {offer?.price}</b>
+                      <b className="place-card__price-value">
+                        &euro; {offer?.price}
+                      </b>
                       <span className="place-card__price-text">
                         &#47;&nbsp;night
                       </span>
