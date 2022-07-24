@@ -8,11 +8,6 @@ type CardScreenProps = {
 };
 
 function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
-  if (isActive) {
-    // eslint-disable-next-line no-console
-    console.log(offer.id);
-  }
-
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOver}>
       <div className="place-card__mark">

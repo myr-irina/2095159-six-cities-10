@@ -2,8 +2,6 @@ import Card from '../card/Card';
 import { Offer } from '../../types/offer';
 import { useState } from 'react';
 
-// import classNames from 'classnames';
-
 type CardListScreenProps = {
   offers: Offer[];
 };

@@ -11,11 +11,6 @@ function CardWithReviews({
   onMouseOver,
   isActive,
 }: CardWithReviewsScreenProps) {
-  if (isActive) {
-    // eslint-disable-next-line no-console
-    console.log('active', offer.id);
-  }
-
   return (
     <article
       className="favorites__card place-card"

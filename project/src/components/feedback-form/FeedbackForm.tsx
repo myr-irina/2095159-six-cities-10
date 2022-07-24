@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 
 type FormData = {
@@ -11,24 +10,23 @@ function FeedbackForm() {
     rating: '',
     review: '',
   });
-  // const [isReadOnly, setIsReadOnly] = useState(true);
 
   function handleInputFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLInputElement;
     const { name, value } = target;
-    console.log(event);
+
     setFormData({ ...formData, [name]: value });
-    // setIsReadOnly(true);
   }
 
   function handleTextAreaFieldChange(event: React.ChangeEvent) {
-    const target = (event.target as HTMLInputElement).value;
-    console.log(target);
+    const target = event.target as HTMLTextAreaElement;
+    const { name, value } = target;
+
+    setFormData({ ...formData, [name]: value });
   }
 
   function handleSubmitForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log('Form is submitted');
   }
 
   return (
