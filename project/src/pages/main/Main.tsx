@@ -1,11 +1,13 @@
-import Card from '../../components/card/Card';
+import CardList from '../../components/card-list/CardList';
 import Logo from '../../components/logo/logo';
+import { Offer } from '../../types/offer';
 
-type PlacesCountProps = {
+type MainScreenProps = {
   placesCount: number;
+  offers: Offer[];
 };
 
-function Main({ placesCount }: PlacesCountProps): JSX.Element {
+function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -113,13 +115,7 @@ function Main({ placesCount }: PlacesCountProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-              </div>
+              <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

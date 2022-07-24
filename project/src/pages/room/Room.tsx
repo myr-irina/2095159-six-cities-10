@@ -1,20 +1,27 @@
 import { useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import ReviewForm from '../../components/feedback-form/FeedbackForm';
+import { Offer } from '../../types/offer';
 
-function Room(): JSX.Element {
-  const params = useParams();
+type RoomScreenProps = {
+  offers: Offer[];
+};
 
-  if (params.id) {
-    // eslint-disable-next-line no-console
-    console.log(params);
+function Room({ offers }: RoomScreenProps): JSX.Element {
+  const { id } = useParams();
+  const offer = offers.find((offerItem) => offerItem.id === Number(id));
+
+  if (!offer) {
+    return <p>No places to stay available</p>;
   }
+
   return (
     <div className="page">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <div style={{ width: '81px', height: '41px' }}>
+              <div className="" style={{ width: '81px', height: '41px' }}>
                 <Logo />
               </div>
             </div>
@@ -50,42 +57,42 @@ function Room(): JSX.Element {
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/room.jpg"
+                  src={offer?.images[0]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-02.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-03.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/studio-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
@@ -95,12 +102,10 @@ function Room(): JSX.Element {
           <div className="property__container container">
             <div className="property__wrapper">
               <div className="property__mark">
-                <span>Premium</span>
+                <span>Premium {offer?.isPremium}</span>
               </div>
               <div className="property__name-wrapper">
-                <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
-                </h1>
+                <h1 className="property__name">{offer?.description}</h1>
 
                 <button
                   className="property__bookmark-button button"
@@ -113,7 +118,9 @@ function Room(): JSX.Element {
                   >
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">
+                    To bookmarks{offer?.isFavorite}
+                  </span>
                 </button>
               </div>
               <div className="property__rating rating">
@@ -122,22 +129,22 @@ function Room(): JSX.Element {
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
-                  4.8
+                  {offer?.rating}
                 </span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {offer?.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {offer?.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {offer?.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{offer?.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -161,14 +168,18 @@ function Room(): JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
-                      width="74"
-                      height="74"
+                      src={offer?.host?.avatarUrl}
+                      width="100%"
+                      height="100%"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">Angelina</span>
-                  <span className="property__user-status">Pro</span>
+                  <span className="property__user-name">
+                    {offer?.host?.name}
+                  </span>
+                  <span className="property__user-status">
+                    {offer?.host?.isPro}
+                  </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -219,122 +230,7 @@ function Room(): JSX.Element {
                     </div>
                   </li>
                 </ul>
-                <form className="reviews__form form" action="#" method="post">
-                  <label
-                    className="reviews__label form__label"
-                    htmlFor="review"
-                  >
-                    Your review
-                  </label>
-                  <div className="reviews__rating-form form__rating">
-                    <input
-                      className="form__rating-input visually-hidden"
-                      name="rating"
-                      value="5"
-                      id="5-stars"
-                      type="radio"
-                    />
-                    <label
-                      htmlFor="5-stars"
-                      className="reviews__rating-label form__rating-label"
-                      title="perfect"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input
-                      className="form__rating-input visually-hidden"
-                      name="rating"
-                      value="4"
-                      id="4-stars"
-                      type="radio"
-                    />
-                    <label
-                      htmlFor="4-stars"
-                      className="reviews__rating-label form__rating-label"
-                      title="good"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input
-                      className="form__rating-input visually-hidden"
-                      name="rating"
-                      value="3"
-                      id="3-stars"
-                      type="radio"
-                    />
-                    <label
-                      htmlFor="3-stars"
-                      className="reviews__rating-label form__rating-label"
-                      title="not bad"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input
-                      className="form__rating-input visually-hidden"
-                      name="rating"
-                      value="2"
-                      id="2-stars"
-                      type="radio"
-                    />
-                    <label
-                      htmlFor="2-stars"
-                      className="reviews__rating-label form__rating-label"
-                      title="badly"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input
-                      className="form__rating-input visually-hidden"
-                      name="rating"
-                      value="1"
-                      id="1-star"
-                      type="radio"
-                    />
-                    <label
-                      htmlFor="1-star"
-                      className="reviews__rating-label form__rating-label"
-                      title="terribly"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"></use>
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea
-                    className="reviews__textarea form__textarea"
-                    id="review"
-                    name="review"
-                    placeholder="Tell how was your stay, what you like and what can be improved"
-                  >
-                  </textarea>
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                      To submit review please make sure to set{' '}
-                      <span className="reviews__star">rating</span> and describe
-                      your stay with at least{' '}
-                      <b className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button
-                      className="reviews__submit form__submit button"
-                      type="submit"
-                      disabled
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
+                <ReviewForm />
               </section>
             </div>
           </div>
@@ -443,13 +339,13 @@ function Room(): JSX.Element {
 
               <article className="near-places__card place-card">
                 <div className="place-card__mark">
-                  <span>Premium</span>
+                  <span>Premium {offer?.isPremium}</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="/">
                     <img
                       className="place-card__image"
-                      src="img/apartment-03.jpg"
+                      src={offer?.images[0]}
                       width="260"
                       height="200"
                       alt="Place"
@@ -459,7 +355,9 @@ function Room(): JSX.Element {
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
                     <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
+                      <b className="place-card__price-value">
+                        &euro; {offer?.price}
+                      </b>
                       <span className="place-card__price-text">
                         &#47;&nbsp;night
                       </span>
