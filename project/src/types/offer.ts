@@ -1,10 +1,13 @@
 export type Offer = {
   id: number;
-  src: string;
-  price: string;
-  placeName: string;
-  placeType: string;
-  rating: string;
-  review?: string;
+  bedrooms: number;
+  description: string;
+  image: string;
+  isFavorite: boolean;
+  isPremium: boolean;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 };
-

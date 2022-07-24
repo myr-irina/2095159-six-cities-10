@@ -28,7 +28,7 @@ function CardWithReviews({
         <a href="/">
           <img
             className="place-card__image"
-            src={offer.src}
+            src={offer.image}
             style={{ width: '150px', height: '110px' }}
             alt="Place"
           />
@@ -57,9 +57,9 @@ function CardWithReviews({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="/">{offer.review}</a>
+          <a href="/">{offer.description}</a>
         </h2>
-        <p className="place-card__type">{offer.placeType}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );

@@ -10,21 +10,24 @@ type CardScreenProps = {
 function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
   if (isActive) {
     // eslint-disable-next-line no-console
-    console.log('active', offer.id);
+    console.log(offer.id);
   }
 
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOver}>
+      <div className="place-card__mark">
+        <span>Premium {offer.isPremium}</span>
+      </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="/">
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
-            src={offer.src}
+            src={offer.image}
             width="260"
             height="200"
             alt="Place"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -34,7 +37,7 @@ function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
           </div>
           <button className="place-card__bookmark-button button" type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
+              <use xlinkHref="#icon-bookmark">{offer.isFavorite}</use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
           </button>
@@ -46,9 +49,9 @@ function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
           </div>
         </div>
         <Link to={`/offer/${offer.id}`}>
-          <h2 className="place-card__name">{offer.placeName}</h2>
+          <h2 className="place-card__name">{offer.title}</h2>
         </Link>
-        <p className="place-card__type">{offer.placeType}</p>
+        <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
   );
