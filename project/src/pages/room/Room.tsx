@@ -10,8 +10,6 @@ type RoomScreenProps = {
 function Room({ offers }: RoomScreenProps): JSX.Element {
   const params = useParams();
   const offer = offers.find((item) => item.id === Number(params.id));
-  // eslint-disable-next-line no-console
-  console.log(offer);
 
   return (
     <div className="page">
@@ -55,42 +53,42 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/room.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-02.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-03.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/studio-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
               <div className="property__image-wrapper">
                 <img
                   className="property__image"
-                  src="img/apartment-01.jpg"
+                  src={offer?.images[1]}
                   alt="studio"
                 />
               </div>
@@ -100,12 +98,10 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
           <div className="property__container container">
             <div className="property__wrapper">
               <div className="property__mark">
-                <span>Premium</span>
+                <span>Premium {offer?.isPremium}</span>
               </div>
               <div className="property__name-wrapper">
-                <h1 className="property__name">
-                  Beautiful &amp; luxurious studio at great location
-                </h1>
+                <h1 className="property__name">{offer?.description}</h1>
 
                 <button
                   className="property__bookmark-button button"
@@ -118,7 +114,7 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                   >
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
-                  <span className="visually-hidden">To bookmarks</span>
+                  <span className="visually-hidden">To bookmarks{offer?.isFavorite}</span>
                 </button>
               </div>
               <div className="property__rating rating">
@@ -127,22 +123,22 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
-                  4.8
+                  {offer?.rating}
                 </span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Apartment
+                  {offer?.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {offer?.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {offer?.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;120</b>
+                <b className="property__price-value">&euro;{offer?.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
@@ -166,14 +162,14 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
-                      width="74"
-                      height="74"
+                      src={offer?.host?.avatarUrl}
+                      width="100%"
+                      height="100%"
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">Angelina</span>
-                  <span className="property__user-status">Pro</span>
+                  <span className="property__user-name">{offer?.host?.name}</span>
+                  <span className="property__user-status">{offer?.host?.isPro}</span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -333,13 +329,13 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
 
               <article className="near-places__card place-card">
                 <div className="place-card__mark">
-                  <span>Premium</span>
+                  <span>Premium {offer?.isPremium}</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="/">
                     <img
                       className="place-card__image"
-                      src="img/apartment-03.jpg"
+                      src={offer?.images[0]}
                       width="260"
                       height="200"
                       alt="Place"
@@ -349,7 +345,7 @@ function Room({ offers }: RoomScreenProps): JSX.Element {
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
                     <div className="place-card__price">
-                      <b className="place-card__price-value">&euro;180</b>
+                      <b className="place-card__price-value">&euro; {offer?.price}</b>
                       <span className="place-card__price-text">
                         &#47;&nbsp;night
                       </span>

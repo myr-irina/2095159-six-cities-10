@@ -29,7 +29,7 @@ function CardWithReviews({
         <a href="/">
           <img
             className="place-card__image"
-            src={offer.images as string}
+            src={offer.images[0]}
             style={{ width: '150px', height: '110px' }}
             alt="Place"
           />
