@@ -1,6 +1,14 @@
 export type Offer = {
   id: number;
   bedrooms: number;
+  city?: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+    name: string;
+  };
   description: string;
   images: string[];
   isFavorite: boolean;
