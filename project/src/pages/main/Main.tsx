@@ -1,6 +1,7 @@
 import CardList from '../../components/card-list/CardList';
 import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offer';
+import Map from '../../components/map/Map';
 
 type MainScreenProps = {
   placesCount: number;
@@ -118,7 +119,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
               <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map />
             </div>
           </div>
         </div>
