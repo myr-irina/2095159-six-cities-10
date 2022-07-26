@@ -8,6 +8,8 @@ type CardScreenProps = {
 };
 
 function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
+
+
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOver}>
       <div className="place-card__mark">

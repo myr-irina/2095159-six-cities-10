@@ -1,7 +1,9 @@
+import React from 'react';
 import CardList from '../../components/card-list/CardList';
 import Logo from '../../components/logo/logo';
 import { Offer } from '../../types/offer';
 import Map from '../../components/map/Map';
+
 
 type MainScreenProps = {
   placesCount: number;
@@ -9,6 +11,9 @@ type MainScreenProps = {
 };
 
 function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
+  // const [selectedPoint, setSelectedPoint] = useState({});
+  // const onListItemHover = (listItemName) => {};
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -119,7 +124,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
               <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <Map />
+              <Map offers={offers} />
             </div>
           </div>
         </div>

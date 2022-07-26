@@ -8,6 +8,7 @@ type CardListScreenProps = {
 
 function CardList({ offers }: CardListScreenProps): JSX.Element {
   const [isActiveCard, setIsActiveCard] = useState<number>(1);
+
   return (
     <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
