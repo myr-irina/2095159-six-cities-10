@@ -1,23 +1,25 @@
 import Card from '../card/Card';
 import { Offer } from '../../types/offer';
-import { useState } from 'react';
 
 type CardListScreenProps = {
   offers: Offer[];
+  onListItemHover: (listItemName: number) => void;
 };
 
-function CardList({ offers }: CardListScreenProps): JSX.Element {
-  const [isActiveCard, setIsActiveCard] = useState<number>(1);
-
+function CardList({
+  offers,
+  onListItemHover,
+}: CardListScreenProps): JSX.Element {
   return (
     <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <Card
-          offer={offer}
-          key={offer.id}
-          onMouseOver={() => setIsActiveCard(offer.id)}
-          isActive={isActiveCard === offer.id}
-        />
+        <li key={offer.id}>
+          <Card
+            offer={offer}
+            key={offer.id}
+            onListItemHover={onListItemHover}
+          />
+        </li>
       ))}
     </ul>
   );
