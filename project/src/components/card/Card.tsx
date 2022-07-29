@@ -3,13 +3,18 @@ import { Offer } from '../../types/offer';
 
 type CardScreenProps = {
   offer: Offer;
-  onMouseOver: () => void;
-  isActive: boolean;
+  onListItemHover: (listItemName: number) => void;
 };
 
-function Card({ offer, onMouseOver, isActive }: CardScreenProps) {
+function Card({ offer, onListItemHover }: CardScreenProps) {
+
+  const listItemHoverHandler = (event: React.MouseEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    onListItemHover(offer.id);
+  };
+
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOver}>
+    <article className="cities__card place-card" onMouseEnter={listItemHoverHandler}>
       <div className="place-card__mark">
         <span>Premium {offer.isPremium}</span>
       </div>

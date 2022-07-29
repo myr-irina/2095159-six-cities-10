@@ -4,8 +4,21 @@ export const offers: Offer[] = [
   {
     id: 1,
     bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.383333,
+        longitude: 4.9,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
     description:
       'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
     images: [
       'https://image.shutterstock.com/image-illustration/white-living-room-sofa-scandinavian-600w-1924056443.jpg',
       'https://image.shutterstock.com/image-illustration/interior-living-room-3d-illustration-600w-1109304173.jpg',
@@ -17,7 +30,8 @@ export const offers: Offer[] = [
       'https://image.shutterstock.com/image-illustration/white-living-room-sofa-scandinavian-600w-1924056443.jpg',
     maxAdults: 3,
     host: {
-      avatarUrl: 'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
+      avatarUrl:
+        'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
@@ -30,8 +44,21 @@ export const offers: Offer[] = [
   {
     id: 2,
     bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.383333,
+        longitude: 4.9,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
     description:
       'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
     images: [
       'https://image.shutterstock.com/image-illustration/white-living-room-sofa-scandinavian-600w-1924056443.jpg',
       'https://image.shutterstock.com/image-illustration/interior-living-room-3d-illustration-600w-1109304173.jpg',
@@ -39,7 +66,8 @@ export const offers: Offer[] = [
     ],
     maxAdults: 3,
     host: {
-      avatarUrl: 'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
+      avatarUrl:
+        'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
@@ -56,8 +84,21 @@ export const offers: Offer[] = [
   {
     id: 3,
     bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
     description:
       'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 8,
+    },
     images: [
       'https://image.shutterstock.com/image-illustration/white-living-room-sofa-scandinavian-600w-1924056443.jpg',
       'https://image.shutterstock.com/image-illustration/interior-living-room-3d-illustration-600w-1109304173.jpg',
@@ -65,7 +106,8 @@ export const offers: Offer[] = [
     ],
     maxAdults: 3,
     host: {
-      avatarUrl: 'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
+      avatarUrl:
+        'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
@@ -82,8 +124,21 @@ export const offers: Offer[] = [
   {
     id: 4,
     bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
     description:
       'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 8,
+    },
     images: [
       'https://image.shutterstock.com/image-illustration/white-living-room-sofa-scandinavian-600w-1924056443.jpg',
       'https://image.shutterstock.com/image-illustration/interior-living-room-3d-illustration-600w-1109304173.jpg',
@@ -91,7 +146,8 @@ export const offers: Offer[] = [
     ],
     maxAdults: 3,
     host: {
-      avatarUrl: 'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
+      avatarUrl:
+        'https://image.shutterstock.com/image-photo/asian-two-woman-smiling-using-600w-1922460314.jpg',
       id: 3,
       isPro: true,
       name: 'Angelina',
