@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import CardList from '../../components/card-list/CardList';
 import { Offer } from '../../types/offer';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 type MainScreenProps = {
   placesCount: number;
@@ -10,13 +11,21 @@ type MainScreenProps = {
 };
 
 function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
+  const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
     undefined
   );
-  const onListItemHover = (listItemId: number) => {
+  const ref = useRef(null);
+
+  function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
     setSelectedOfferId(currentOffer?.id);
-  };
+  }
+
+  function handlePopupClick() {
+    setPopupIsVisible((current) => !current);
+  }
+  useOnClickOutside(ref, () => setPopupIsVisible(false));
 
   return (
     <div className="page page--gray page--main">
@@ -69,15 +78,28 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
               <b className="places__found">
                 {placesCount} places to stay in Amsterdam
               </b>
-              <form className="places__sorting" action="#" method="get">
+              <form
+                className="places__sorting"
+                action="#"
+                method="get"
+                ref={ref}
+              >
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
+                <span
+                  className="places__sorting-type"
+                  tabIndex="0"
+                  onClick={handlePopupClick}
+                >
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul
+                  className={`places__options places__options--custom ${
+                    popupIsVisible ? 'places__options--opened' : ''
+                  }`}
+                >
                   <li
                     className="places__option places__option--active"
                     tabIndex="0"
