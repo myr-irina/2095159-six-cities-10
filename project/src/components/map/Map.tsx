@@ -48,7 +48,7 @@ function Map(props: MapScreenProps): JSX.Element {
   }, [map, offers, selectedOfferId]);
 
   return (
-    <div className="cities__map" style={{ height: '512px' }} ref={mapRef}></div>
+    <div className="cities__map" style={{ height: '100%' }} ref={mapRef}></div>
   );
 }
 
