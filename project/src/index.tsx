@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { offers } from './mocks/offers';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const Places = {
   PLACES_COUNT: 312,
@@ -13,6 +15,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App placesCount={Places.PLACES_COUNT} offers={offers} />
+    <Provider store={store}>
+      <App placesCount={Places.PLACES_COUNT} offers={offers} />
+    </Provider>
   </React.StrictMode>
 );
