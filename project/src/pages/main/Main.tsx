@@ -44,6 +44,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   // });
   // const { city, offers } = useAppSelector((state) => state);
   const activeCity = useAppSelector(getActiveCity);
+  const offersList = useAppSelector((state) => state.offers);
   const dispatch = useAppDispatch();
 
   function onListItemHover(listItemId: number) {
@@ -64,7 +65,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {tabs.map((tab, i) => (
+              {tabs.map((tab) => (
                 <li
                   className={`locations__item-link tabs__item ${
                     tab.title === activeCity ? 'tabs__item--active' : ''
@@ -85,42 +86,6 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                   </a>
                 </li>
               ))}
-              {/* <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a
-                  className="locations__item-link tabs__item tabs__item--active"
-                  href="/"
-                  onClick={() => {
-                    dispatch(renderOfferList());
-                  }}
-                >
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="/">
-                  <span>Dusseldorf</span>
-                </a>
-              </li> */}
             </ul>
           </section>
         </div>
@@ -170,10 +135,10 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CardList offers={offers} onListItemHover={onListItemHover} />
+              <CardList offers={offersList} onListItemHover={onListItemHover} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} selectedOfferId={selectedOfferId} />
+              <Map offers={offersList} selectedOfferId={selectedOfferId} />
             </div>
           </div>
         </div>
@@ -182,4 +147,3 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   );
 }
 export default Main;
-
