@@ -1,9 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useRef, useState } from 'react';
 import CardList from '../../components/card-list/CardList';
 import { Offer } from '../../types/offer';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import { useAppSelector } from '../../hooks';
+import { getActiveCity } from '../../store/selectors';
+import { useAppDispatch } from '../../hooks';
+import { setActiveCity } from '../../store/action';
+// import { renderOfferList } from '../../store/action';
 
 type MainScreenProps = {
   placesCount: number;
@@ -16,6 +22,29 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
     undefined
   );
   const ref = useRef(null);
+
+  const tabs = [
+    { title: 'Paris' },
+    { title: 'Cologne' },
+    { title: 'Brussels' },
+    { title: 'Amsterdam' },
+    { title: 'Hamburg' },
+    { title: 'Dusseldorf' },
+  ];
+
+  // const [city, setCity] = useState('Cologne');
+
+  // const filteredOffers = offers.filter((offer) => {
+  //   if (activeCity === null) {
+  //     return true;
+  //   } else if (activeCity === offer.city.name) {
+  //     return true;
+  //   }
+  //   return false;
+  // });
+  // const { city, offers } = useAppSelector((state) => state);
+  const activeCity = useAppSelector(getActiveCity);
+  const dispatch = useAppDispatch();
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
@@ -35,7 +64,28 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
+              {tabs.map((tab, i) => (
+                <li
+                  className={`locations__item-link tabs__item ${
+                    tab.title === activeCity ? 'tabs__item--active' : ''
+                  }`}
+                  key={tab.title}
+                >
+                  <a
+                    className="locations__item-link tabs__item"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                      // @ts-ignore
+                      dispatch(setActiveCity(tab.title));
+                    }}
+                    href="#"
+                  >
+                    <span>{tab.title}</span>
+                  </a>
+                </li>
+              ))}
+              {/* <li className="locations__item">
                 <a className="locations__item-link tabs__item" href="/">
                   <span>Paris</span>
                 </a>
@@ -54,6 +104,9 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                 <a
                   className="locations__item-link tabs__item tabs__item--active"
                   href="/"
+                  onClick={() => {
+                    dispatch(renderOfferList());
+                  }}
                 >
                   <span>Amsterdam</span>
                 </a>
@@ -67,7 +120,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                 <a className="locations__item-link tabs__item" href="/">
                   <span>Dusseldorf</span>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </section>
         </div>
@@ -129,3 +182,4 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   );
 }
 export default Main;
+
