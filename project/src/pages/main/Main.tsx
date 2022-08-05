@@ -6,16 +6,15 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
-import { getFilteredOffers } from '../../store/selectors';
+import { countFilteredOffers, getFilteredOffers } from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
 
 
 type MainScreenProps = {
-  placesCount: number;
   offers: Offer[];
 };
 
-function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
+function Main({ offers }: MainScreenProps): JSX.Element {
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
     undefined
@@ -29,19 +28,8 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   //   { title: 'Top rated first' },
   // ];
 
-
-  // const filteredOffers = offers.filter((offer) => {
-  //   if (activeCity === null) {
-  //     return true;
-  //   } else if (activeCity === offer.city.name) {
-  //     return true;
-  //   }
-  //   return false;
-  // });
-  // const { city, offers } = useAppSelector((state) => state);
-
-  // const offersList = useAppSelector(getOffers);
   const filteredOffers = useAppSelector(getFilteredOffers);
+  const countOffers = useAppSelector(countFilteredOffers);
 
 
   function onListItemHover(listItemId: number) {
@@ -64,9 +52,9 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {placesCount} places to stay in Amsterdam
-              </b>
+              <p className="places__found">
+                {countOffers} places to stay in Amsterdam
+              </p>
               <form
                 className="places__sorting"
                 action="#"
