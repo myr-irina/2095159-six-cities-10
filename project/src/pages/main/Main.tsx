@@ -6,10 +6,9 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
-import { getActiveCity, getFilteredOffers } from '../../store/selectors';
-import { useAppDispatch } from '../../hooks';
-import { setActiveCity } from '../../store/action';
-// import { renderOfferList } from '../../store/action';
+import { getFilteredOffers } from '../../store/selectors';
+import CityList from '../../components/city-list/cityList';
+
 
 type MainScreenProps = {
   placesCount: number;
@@ -23,15 +22,6 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   );
   const ref = useRef(null);
 
-  const tabs = [
-    { title: 'Paris' },
-    { title: 'Cologne' },
-    { title: 'Brussels' },
-    { title: 'Amsterdam' },
-    { title: 'Hamburg' },
-    { title: 'Dusseldorf' },
-  ];
-
   // const params = [
   //   { title: 'Popular' },
   //   { title: 'Price: low to high' },
@@ -39,7 +29,6 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   //   { title: 'Top rated first' },
   // ];
 
-  // const [city, setCity] = useState('Cologne');
 
   // const filteredOffers = offers.filter((offer) => {
   //   if (activeCity === null) {
@@ -50,10 +39,10 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   //   return false;
   // });
   // const { city, offers } = useAppSelector((state) => state);
-  const activeCity = useAppSelector(getActiveCity);
+
   // const offersList = useAppSelector(getOffers);
   const filteredOffers = useAppSelector(getFilteredOffers);
-  const dispatch = useAppDispatch();
+
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
@@ -70,31 +59,7 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
       <Header />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {tabs.map((tab) => (
-                <li
-                  className={`locations__item-link tabs__item ${
-                    tab.title === activeCity ? 'tabs__item--active' : ''
-                  }`}
-                  key={tab.title}
-                >
-                  <a
-                    className="locations__item-link tabs__item"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      dispatch(setActiveCity(tab.title));
-                    }}
-                    href="#"
-                  >
-                    <span>{tab.title}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </div>
+        <CityList />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -141,7 +106,10 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CardList offers={filteredOffers} onListItemHover={onListItemHover} />
+              <CardList
+                offers={filteredOffers}
+                onListItemHover={onListItemHover}
+              />
             </section>
             <div className="cities__right-section">
               <Map offers={filteredOffers} selectedOfferId={selectedOfferId} />
