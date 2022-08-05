@@ -6,7 +6,7 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
-import { getActiveCity } from '../../store/selectors';
+import { getActiveCity, getFilteredOffers } from '../../store/selectors';
 import { useAppDispatch } from '../../hooks';
 import { setActiveCity } from '../../store/action';
 // import { renderOfferList } from '../../store/action';
@@ -32,6 +32,13 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
     { title: 'Dusseldorf' },
   ];
 
+  // const params = [
+  //   { title: 'Popular' },
+  //   { title: 'Price: low to high' },
+  //   { title: 'Price: high to low' },
+  //   { title: 'Top rated first' },
+  // ];
+
   // const [city, setCity] = useState('Cologne');
 
   // const filteredOffers = offers.filter((offer) => {
@@ -44,7 +51,8 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
   // });
   // const { city, offers } = useAppSelector((state) => state);
   const activeCity = useAppSelector(getActiveCity);
-  const offersList = useAppSelector((state) => state.offers);
+  // const offersList = useAppSelector(getOffers);
+  const filteredOffers = useAppSelector(getFilteredOffers);
   const dispatch = useAppDispatch();
 
   function onListItemHover(listItemId: number) {
@@ -76,8 +84,6 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                     className="locations__item-link tabs__item"
                     onClick={(e) => {
                       e.preventDefault();
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
                       dispatch(setActiveCity(tab.title));
                     }}
                     href="#"
@@ -135,10 +141,10 @@ function Main({ placesCount, offers }: MainScreenProps): JSX.Element {
                   </li>
                 </ul>
               </form>
-              <CardList offers={offersList} onListItemHover={onListItemHover} />
+              <CardList offers={filteredOffers} onListItemHover={onListItemHover} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offersList} selectedOfferId={selectedOfferId} />
+              <Map offers={filteredOffers} selectedOfferId={selectedOfferId} />
             </div>
           </div>
         </div>
