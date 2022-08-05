@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useRef, useState } from 'react';
 import CardList from '../../components/card-list/CardList';
 import { Offer } from '../../types/offer';
@@ -8,7 +7,6 @@ import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
 import { countFilteredOffers, getFilteredOffers } from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
-
 
 type MainScreenProps = {
   offers: Offer[];
@@ -21,16 +19,8 @@ function Main({ offers }: MainScreenProps): JSX.Element {
   );
   const ref = useRef(null);
 
-  // const params = [
-  //   { title: 'Popular' },
-  //   { title: 'Price: low to high' },
-  //   { title: 'Price: high to low' },
-  //   { title: 'Top rated first' },
-  // ];
-
   const filteredOffers = useAppSelector(getFilteredOffers);
   const countOffers = useAppSelector(countFilteredOffers);
-
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);

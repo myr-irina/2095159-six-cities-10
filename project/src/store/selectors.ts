@@ -11,14 +11,3 @@ export const getFilteredOffers = createSelector(getStore, ({ offers, city }) =>
 export const countFilteredOffers = createSelector(
   getFilteredOffers, (offers) => offers.length
 );
-
-// export const sortItemsByCategory = createSelector(
-//   [
-//     // Usual first input - extract value from `state`
-//     getOffers,
-//     // Take the second arg, `category`, and forward to the output selector
-//     (offers, category) => category
-//   ],
-//   // Output selector gets (`items, category)` as args
-//   (items, category) => items.sort((item) => item.price === category)
-// );
