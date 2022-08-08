@@ -8,6 +8,4 @@ export const getOffers = createSelector(getStore, ({ offers }) => offers);
 export const getFilteredOffers = createSelector(getStore, ({ offers, city }) =>
   offers.filter((offer) => offer.city.name === city)
 );
-export const countFilteredOffers = createSelector(
-  getFilteredOffers, (offers) => offers.length
-);
+

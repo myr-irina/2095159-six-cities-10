@@ -5,10 +5,8 @@ function useOnClickOutside(
   handler: () => void
 ) {
   useEffect(() => {
-    function handleClickOutside(event: any) {
-      // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
-        // eslint-disable-next-line no-useless-return
+    function handleClickOutside(event: Event) {
+      if (!ref.current || ref.current.contains(event.target as HTMLBodyElement)) {
         return;
       }
       handler();

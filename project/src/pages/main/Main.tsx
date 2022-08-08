@@ -5,7 +5,7 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
-import { countFilteredOffers, getFilteredOffers } from '../../store/selectors';
+import { getActiveCity, getFilteredOffers } from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
 
 type MainScreenProps = {
@@ -20,7 +20,8 @@ function Main({ offers }: MainScreenProps): JSX.Element {
   const ref = useRef(null);
 
   const filteredOffers = useAppSelector(getFilteredOffers);
-  const countOffers = useAppSelector(countFilteredOffers);
+  // const countOffers = useAppSelector(countFilteredOffers);
+  const activeCity = useAppSelector(getActiveCity);
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
@@ -43,7 +44,7 @@ function Main({ offers }: MainScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <p className="places__found">
-                {countOffers} places to stay in Amsterdam
+                {filteredOffers.length} places to stay in {activeCity}
               </p>
               <form
                 className="places__sorting"

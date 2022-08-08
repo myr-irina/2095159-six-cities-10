@@ -1,16 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setActiveCity } from '../../store/action';
 import { getActiveCity } from '../../store/selectors';
+import { tabs } from '../const';
 
 function CityList() {
-  const tabs = [
-    { title: 'Paris' },
-    { title: 'Cologne' },
-    { title: 'Brussels' },
-    { title: 'Amsterdam' },
-    { title: 'Hamburg' },
-    { title: 'Dusseldorf' },
-  ];
   const activeCity = useAppSelector(getActiveCity);
   const dispatch = useAppDispatch();
 
@@ -25,16 +18,15 @@ function CityList() {
               }`}
               key={tab.title}
             >
-              <a
+              <div style={{cursor: 'pointer'}}
                 className="locations__item-link tabs__item"
                 onClick={(e) => {
                   e.preventDefault();
                   dispatch(setActiveCity(tab.title));
                 }}
-                href="#"
               >
                 <span>{tab.title}</span>
-              </a>
+              </div>
             </li>
           ))}
         </ul>
