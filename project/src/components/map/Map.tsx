@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../const';
 import 'leaflet/dist/leaflet.css';
@@ -29,6 +30,7 @@ function Map(props: MapScreenProps): JSX.Element {
   const map = useMap(mapRef, offers[0].city);
 
   useEffect(() => {
+    const markerGroup = layerGroup([]);
     if (map) {
       offers.forEach(({ location, id }) => {
         const marker = new Marker({
@@ -36,19 +38,22 @@ function Map(props: MapScreenProps): JSX.Element {
           lng: location.longitude,
         });
 
-        marker
-          .setIcon(
-            selectedOfferId !== undefined && id === selectedOfferId
-              ? currentCustomIcon
-              : defaultCustomIcon
-          )
-          .addTo(map);
+        marker.setIcon(
+          selectedOfferId !== undefined && id === selectedOfferId
+            ? currentCustomIcon
+            : defaultCustomIcon
+        );
+        markerGroup.addLayer(marker);
       });
+      markerGroup.addTo(map);
     }
+    return () => {
+      map?.removeLayer(markerGroup);
+    };
   }, [map, offers, selectedOfferId]);
 
   return (
-    <div className="cities__map" style={{ height: '512px' }} ref={mapRef}></div>
+    <div className="cities__map" style={{ height: '100%' }} ref={mapRef}></div>
   );
 }
 
