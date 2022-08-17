@@ -6,18 +6,21 @@ import {
   loadOffers,
   requireAuthorization,
   setActiveCity,
+  setError,
 } from './action';
 
 type InitialState = {
   city: string;
   offers: Offer[];
   authorizationStatus: AuthorizationStatus;
+  error: string | null,
 };
 
 const initialState: InitialState = {
   city: 'Paris',
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -33,6 +36,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 

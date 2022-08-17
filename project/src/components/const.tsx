@@ -33,3 +33,5 @@ export const tabs = [
   { title: 'Hamburg' },
   { title: 'Dusseldorf' },
 ];
+
+export const TIMEOUT_SHOW_ERROR = 5000;
