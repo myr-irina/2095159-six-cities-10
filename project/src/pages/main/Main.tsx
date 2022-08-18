@@ -1,27 +1,33 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CardList from '../../components/card-list/CardList';
-import { Offer } from '../../types/offer';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { useAppSelector } from '../../hooks';
-import { getActiveCity, getFilteredOffers } from '../../store/selectors';
+import { getActiveCity, getFilteredOffers, getOffers } from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
+import { useDispatch } from 'react-redux';
+import { fetchOffersAction } from '../../store/api-actions';
+import LoadingScreen from '../loading-screen/loading-screen';
+import { AppDispatch } from '../../types/state';
 
-type MainScreenProps = {
-  offers: Offer[];
-};
 
-function Main({ offers }: MainScreenProps): JSX.Element {
+function Main(): JSX.Element {
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
     undefined
   );
   const ref = useRef(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   const filteredOffers = useAppSelector(getFilteredOffers);
-  // const countOffers = useAppSelector(countFilteredOffers);
   const activeCity = useAppSelector(getActiveCity);
+  const offers = useAppSelector(getOffers);
+
+  useEffect(()=> {
+    dispatch(fetchOffersAction());
+  },[dispatch]);
+
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
@@ -32,6 +38,10 @@ function Main({ offers }: MainScreenProps): JSX.Element {
     setPopupIsVisible((current) => !current);
   }
   useOnClickOutside(ref, () => setPopupIsVisible(false));
+
+  if(!filteredOffers.length) {
+    return <LoadingScreen/>;
+  }
 
   return (
     <div className="page page--gray page--main">

@@ -1,15 +1,27 @@
+/* eslint-disable no-console */
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ReviewForm from '../../components/feedback-form/FeedbackForm';
-import { Offer } from '../../types/offer';
 import Header from '../../components/header/Header';
+import { useAppSelector } from '../../hooks';
+import { getOffer } from '../../store/selectors';
+import { fetchOfferAction } from '../../store/api-actions';
+import { AppDispatch } from '../../types/state';
 
-type RoomScreenProps = {
-  offers: Offer[];
-};
 
-function Room({ offers }: RoomScreenProps): JSX.Element {
+function Room(): JSX.Element {
   const { id } = useParams();
-  const offer = offers.find((offerItem) => offerItem.id === Number(id));
+
+  const offer = useAppSelector(getOffer);
+
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(()=> {
+    dispatch(fetchOfferAction());
+  },[dispatch, id]);
+
 
   if (!offer) {
     return <p>No places to stay available</p>;
