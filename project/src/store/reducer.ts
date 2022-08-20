@@ -26,7 +26,6 @@ const initialState: InitialState = {
   id: 1,
   city: 'Paris',
   offers: [],
-  // offer: {},
   offer: {
     id: 1,
     bedrooms: 0,

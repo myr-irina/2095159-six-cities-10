@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -11,16 +10,15 @@ import { AppDispatch } from '../../types/state';
 
 
 function Room(): JSX.Element {
-  const { id } = useParams();
+  const { hotelId } = useParams();
 
   const offer = useAppSelector(getOffer);
-
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(()=> {
-    dispatch(fetchOfferAction());
-  },[dispatch, id]);
+    dispatch(fetchOfferAction(hotelId));
+  },[dispatch, hotelId]);
 
 
   if (!offer) {
