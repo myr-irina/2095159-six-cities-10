@@ -17,8 +17,6 @@ function Login(): JSX.Element {
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-    // eslint-disable-next-line no-console
-    console.log('sadfsd');
     evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
       onSubmit({
