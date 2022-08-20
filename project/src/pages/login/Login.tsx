@@ -1,4 +1,33 @@
-function Login() {
+import { useRef, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../components/const';
+import { useAppDispatch } from '../../hooks';
+import { loginAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
+
+function Login(): JSX.Element {
+  const loginRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (authData: AuthData) => {
+    dispatch(loginAction(authData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      onSubmit({
+        login: loginRef.current.value,
+        password: passwordRef.current.value,
+      });
+    }
+  };
+
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -23,11 +52,14 @@ function Login() {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form className="login__form form" action="#" method="post"
+              onSubmit={handleSubmit}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
                   className="login__input form__input"
+                  ref={loginRef}
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -38,6 +70,7 @@ function Login() {
                 <label className="visually-hidden">Password</label>
                 <input
                   className="login__input form__input"
+                  ref={passwordRef}
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -45,6 +78,7 @@ function Login() {
                 />
               </div>
               <button
+                onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
                 type="submit"
               >
