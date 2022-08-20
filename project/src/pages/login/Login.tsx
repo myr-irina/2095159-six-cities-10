@@ -17,8 +17,9 @@ function Login(): JSX.Element {
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    // eslint-disable-next-line no-console
+    console.log('sadfsd');
     evt.preventDefault();
-
     if (loginRef.current !== null && passwordRef.current !== null) {
       onSubmit({
         login: loginRef.current.value,
@@ -26,7 +27,6 @@ function Login(): JSX.Element {
       });
     }
   };
-
 
   return (
     <div className="page page--gray page--login">
@@ -80,7 +80,7 @@ function Login(): JSX.Element {
               <button
                 onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
-                type="submit"
+                type="button"
               >
                 Sign in
               </button>
