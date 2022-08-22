@@ -1,13 +1,26 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import CardListFavorites from '../../components/card-list-favorites/CardListFavorites';
 import Header from '../../components/header/Header';
 import Logo from '../../components/logo/logo';
-import { Offer } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/selectors';
+import { AppDispatch } from '../../types/state';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-type FavoriteScreenProps = {
-  offers: Offer[];
-};
+function Favorites() {
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const dispatch = useDispatch<AppDispatch>();
 
-function Favorites({ offers }: FavoriteScreenProps) {
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  });
+
+  if(!favoriteOffers.length) {
+    return <LoadingScreen/>;
+  }
+
   return (
     <div className="page">
       <Header />
@@ -25,7 +38,7 @@ function Favorites({ offers }: FavoriteScreenProps) {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <CardListFavorites offers={offers} />
+                  <CardListFavorites offers={favoriteOffers} />
                 </div>
               </li>
 
@@ -38,7 +51,7 @@ function Favorites({ offers }: FavoriteScreenProps) {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <CardListFavorites offers={offers} />
+                  <CardListFavorites offers={favoriteOffers} />
                 </div>
               </li>
             </ul>

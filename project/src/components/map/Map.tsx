@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/useMap';

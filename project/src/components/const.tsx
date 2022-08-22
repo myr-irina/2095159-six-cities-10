@@ -1,8 +1,8 @@
 export enum AppRoute {
   Main = '/',
   Login = '/login',
-  Favorites = '/favorites',
-  Room = '/offer/:id',
+  Favorites = '/favorite',
+  Room = '/offer/:hotelId',
   PageNotFound = '*',
 }
 
@@ -10,6 +10,18 @@ export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
+}
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Offer = '/hotels/{hotelId}',
+  OffersNearBy = '/hotels/{hotelId}/nearby',
+  Favorite = '/favorite',
+  FavoriteChangeStatus = '/favorite/{hotelId}/{status}',
+  Comments = '/comments/{hotelId}',
+  NewComment = '/comments/{hotelId}',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const URL_MARKER_DEFAULT =
@@ -26,3 +38,5 @@ export const tabs = [
   { title: 'Hamburg' },
   { title: 'Dusseldorf' },
 ];
+
+export const TIMEOUT_SHOW_ERROR = 5000;

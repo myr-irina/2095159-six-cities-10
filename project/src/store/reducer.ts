@@ -1,10 +1,68 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { offers } from '../mocks/offers';
-import { fillOfferList, setActiveCity } from './action';
+import { AuthorizationStatus } from '../components/const';
+import { Offer } from '../types/offer';
+import {
+  requireAuthorization,
+  setActiveCity,
+  setDataLoadedStatus,
+  setError,
+  setFavoriteOffers,
+  setOffer,
+  setOffers,
+} from './action';
 
-const initialState = {
+type InitialState = {
+  id: number;
+  city: string;
+  offers: Offer[];
+  offer: Offer;
+  favoriteOffers: Offer[];
+  authorizationStatus: AuthorizationStatus;
+  error: string | null;
+  isDataLoaded: boolean;
+};
+
+const initialState: InitialState = {
+  id: 1,
   city: 'Paris',
-  offers,
+  offers: [],
+  offer: {
+    id: 1,
+    bedrooms: 0,
+    city: {
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0,
+      },
+      name: '',
+    },
+    description: '',
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 0,
+    },
+    images: [],
+    isFavorite: false,
+    isPremium: false,
+    previewImage: '',
+    maxAdults: 0,
+    host: {
+      avatarUrl: '',
+      id: 1,
+      isPro: false,
+      name: '',
+    },
+    price: 0,
+    rating: 0,
+    title: '',
+    type: '',
+  },
+  favoriteOffers: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
+  isDataLoaded: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -12,10 +70,23 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(fillOfferList, (state) => {
-      state.offers = offers.filter(
-        (offer) => offer.city.name === state.city
-      );
+    .addCase(setOffers, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoaded = action.payload;
+    })
+    .addCase(setFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(setOffer, (state, action) => {
+      state.offer = action.payload;
     });
 });
 
