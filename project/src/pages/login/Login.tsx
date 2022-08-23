@@ -1,16 +1,15 @@
+/* eslint-disable no-console */
 import { useRef, FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../components/const';
+import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 
 function Login(): JSX.Element {
-  const loginRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -18,9 +17,9 @@ function Login(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
+    if (emailRef.current !== null && passwordRef.current !== null) {
       onSubmit({
-        login: loginRef.current.value,
+        email: emailRef.current.value,
         password: passwordRef.current.value,
       });
     }
@@ -32,7 +31,7 @@ function Login(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to='/'>
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -40,7 +39,7 @@ function Login(): JSX.Element {
                   width="81"
                   height="41"
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -50,14 +49,14 @@ function Login(): JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post"
+            <form className="login__form form"
               onSubmit={handleSubmit}
             >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
                   className="login__input form__input"
-                  ref={loginRef}
+                  ref={emailRef}
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -76,9 +75,8 @@ function Login(): JSX.Element {
                 />
               </div>
               <button
-                onClick={() => navigate(AppRoute.Main)}
                 className="login__submit form__submit button"
-                type="button"
+                type="submit"
               >
                 Sign in
               </button>

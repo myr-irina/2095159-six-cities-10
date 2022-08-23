@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
 import { getFavoriteOffers } from '../../store/selectors';
 import { AppDispatch } from '../../types/state';
-import LoadingScreen from '../loading-screen/loading-screen';
+// import LoadingScreen from '../loading-screen/loading-screen';
 
 function Favorites() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
@@ -17,9 +17,9 @@ function Favorites() {
     dispatch(fetchFavoriteOffersAction());
   });
 
-  if(!favoriteOffers.length) {
-    return <LoadingScreen/>;
-  }
+  // if(!favoriteOffers.length) {
+  //   return <LoadingScreen/>;
+  // }
 
   return (
     <div className="page">

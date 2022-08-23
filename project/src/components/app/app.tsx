@@ -1,15 +1,29 @@
+/* eslint-disable no-console */
 import { Route, Routes } from 'react-router-dom';
 import Main from '../../pages/main/Main';
 import Login from '../../pages/login/Login';
 import Favorites from '../../pages/favorites/Favorites';
 import Room from '../../pages/room/Room';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute } from '../const';
 import PrivateRoute from '../../components/private-routes/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
+import { useAppSelector } from '../../hooks';
+import { getAuthStatus, getLoadedData } from '../../store/selectors';
+// import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function App(): JSX.Element {
+  const authStatus = useAppSelector(getAuthStatus);
+  const dataLoaded = useAppSelector(getLoadedData);
+
+  console.log(authStatus, dataLoaded);
+
+  // if(dataLoaded || authStatus === 'UNKNOWN') {
+  //   return <LoadingScreen/>;
+  // }
+
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -18,7 +32,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={authStatus}>
               <Favorites />
             </PrivateRoute>
           }

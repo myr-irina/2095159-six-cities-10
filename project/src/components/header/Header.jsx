@@ -1,13 +1,23 @@
+/* eslint-disable no-console */
 import Logo from '../logo/logo';
-import { useAppDispatch} from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
-import {logoutAction} from '../../store/api-actions';
-
+import { logoutAction } from '../../store/api-actions';
+import { getUser, getAuthStatus} from './../../store/selectors';
+import { AuthorizationStatus } from '../const';
 
 function Header() {
   const dispatch = useAppDispatch();
 
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
+  console.log(isAuth);
+  const user = useAppSelector(getUser);
+  console.log(user);
+
+
   return (
+
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -23,18 +33,21 @@ function Header() {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
+                    {isAuth & user ? user.email : ''}
                   </span>
                   <span className="header__favorite-count">3</span>
                 </a>
               </li>
               <li className="header__nav-item">
-                <Link className="header__nav-link" onClick={(evt) => {
-                  evt.preventDefault();
-                  dispatch(logoutAction());
-                }} to='#'
+                <Link
+                  className="header__nav-link"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    dispatch(logoutAction());
+                  }}
+                  to="#"
                 >
-                  <span className="header__signout">Sign out</span>
+                  <span className="header__signout">{isAuth ? 'Sign out' : 'Sign in'}</span>
                 </Link>
               </li>
             </ul>
