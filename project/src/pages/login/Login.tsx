@@ -8,7 +8,6 @@ import { AuthData } from '../../types/auth-data';
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
 
   const onSubmit = (authData: AuthData) => {

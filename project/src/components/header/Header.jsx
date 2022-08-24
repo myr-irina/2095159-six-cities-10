@@ -11,9 +11,7 @@ function Header() {
 
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
-  console.log(isAuth);
   const user = useAppSelector(getUser);
-  console.log(user);
 
 
   return (

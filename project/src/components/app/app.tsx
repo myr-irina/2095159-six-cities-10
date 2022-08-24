@@ -10,19 +10,10 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
 import { useAppSelector } from '../../hooks';
-import { getAuthStatus, getLoadedData } from '../../store/selectors';
-// import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { getAuthStatus } from '../../store/selectors';
 
 function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
-  const dataLoaded = useAppSelector(getLoadedData);
-
-  console.log(authStatus, dataLoaded);
-
-  // if(dataLoaded || authStatus === 'UNKNOWN') {
-  //   return <LoadingScreen/>;
-  // }
-
 
   return (
     <HistoryRouter history={browserHistory}>
