@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../components/const';
-// import { AuthData } from '../types/auth-data';
 import { Offer } from '../types/offer';
 import { UserData } from '../types/user-data';
 import {
