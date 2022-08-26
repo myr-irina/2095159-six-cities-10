@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import { getUser, getAuthStatus} from './../../store/selectors';
 import { AuthorizationStatus } from '../const';
+// import { useEffect } from 'react';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -15,10 +16,12 @@ function Header() {
   console.log(user);
   console.log(localStorage.getItem('token'));
 
+  // useEffect(() => {
+  //   if (!user && localStorage.getItem('token')) {
+  //     dispatch(setUser);
+  //   }
+  // }, [dispatch, user]);
 
-  if (!user && localStorage.getItem('token')) {
-    dispatch(getUser);
-  }
 
   return (
     <header className="header">
@@ -36,7 +39,7 @@ function Header() {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
-                    {isAuth ? user.email : ''}
+                    {isAuth & user ? user.email : ''}
                   </span>
                   <span className="header__favorite-count">3</span>
                 </a>

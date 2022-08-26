@@ -18,8 +18,7 @@ export enum APIRoute {
   OffersNearBy = '/hotels/{hotelId}/nearby',
   Favorite = '/favorite',
   FavoriteChangeStatus = '/favorite/{hotelId}/{status}',
-  Comments = '/comments/{hotelId}',
-  NewComment = '/comments/{hotelId}',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

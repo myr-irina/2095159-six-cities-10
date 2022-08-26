@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-
-type FormData = {
-  rating: string;
-  review: string;
-};
+/* eslint-disable no-console */
+import React, { FormEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { addCommentAction } from '../../store/api-actions';
+import { CommentData } from '../../types/comment-data';
 
 function FeedbackForm() {
-  const [formData, setFormData] = useState<FormData>({
-    rating: '',
-    review: '',
+  const [formData, setFormData] = useState<CommentData>({
+    comment: '',
+    rating: 0,
   });
+
+  const dispatch = useAppDispatch();
+  const { hotelId } = useParams();
 
   function handleInputFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLInputElement;
@@ -21,13 +24,24 @@ function FeedbackForm() {
   function handleTextAreaFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLTextAreaElement;
     const { name, value } = target;
+    console.log({ name, value });
 
     setFormData({ ...formData, [name]: value });
   }
 
-  function handleSubmitForm(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-  }
+  const onSubmit = (id: string, commentData: CommentData) => {
+    dispatch(addCommentAction({id, ...commentData}));
+  };
+
+  const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (!formData.comment !== null && !formData.rating !== null && hotelId) {
+      onSubmit(hotelId, {
+        comment: formData.comment,
+        rating: formData.rating,
+      });
+    }
+  };
 
   return (
     <form
@@ -35,7 +49,8 @@ function FeedbackForm() {
       action="#"
       method="post"
       name="update"
-      onSubmit={(e) => handleSubmitForm(e)}
+      // onSubmit={(e) => handleSubmitForm(e)}
+      onSubmit={handleSubmitForm}
     >
       <label className="reviews__label form__label" htmlFor="review">
         Your review
@@ -45,7 +60,7 @@ function FeedbackForm() {
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
-          value={formData.rating}
+          value="5"
           id="5-stars"
           type="radio"
         />
@@ -63,7 +78,7 @@ function FeedbackForm() {
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
-          value={formData.rating}
+          value="4"
           id="4-stars"
           type="radio"
         />
@@ -81,7 +96,7 @@ function FeedbackForm() {
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
-          value={formData.rating}
+          value="3"
           id="3-stars"
           type="radio"
         />
@@ -99,7 +114,7 @@ function FeedbackForm() {
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
-          value={formData.rating}
+          value="2"
           id="2-stars"
           type="radio"
         />
@@ -117,7 +132,7 @@ function FeedbackForm() {
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
-          value={formData.rating}
+          value="1"
           id="1-star"
           type="radio"
         />
@@ -133,10 +148,10 @@ function FeedbackForm() {
       </div>
       <textarea
         onChange={handleTextAreaFieldChange}
-        value={formData.review}
+        value={formData.comment}
         className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
+        id="comment"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>
@@ -149,7 +164,7 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+          // disabled='false'
         >
           Submit
         </button>

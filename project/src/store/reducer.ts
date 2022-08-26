@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../components/const';
+import { CommentsData } from '../types/comments-data';
 import { Offer } from '../types/offer';
 import { UserData } from '../types/user-data';
 import {
-  getUser,
+  setComments,
   requireAuthorization,
   setActiveCity,
   setDataLoadedStatus,
@@ -24,6 +25,7 @@ type InitialState = {
   error: string | null;
   isDataLoaded: boolean;
   user: UserData | null;
+  comments: CommentsData[];
 };
 
 const initialState: InitialState = {
@@ -69,6 +71,7 @@ const initialState: InitialState = {
   error: null,
   isDataLoaded: false,
   user: null,
+  comments: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -97,8 +100,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setUser, (state, action) => {
       state.user = action.payload;
     })
-    .addCase(getUser, (state, action) => {
-      state.user = action.payload;
+    .addCase(setComments, (state, action) => {
+      state.comments = action.payload;
     });
 });
 

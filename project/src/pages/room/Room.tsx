@@ -5,21 +5,28 @@ import { useParams } from 'react-router-dom';
 import ReviewForm from '../../components/feedback-form/FeedbackForm';
 import Header from '../../components/header/Header';
 import { useAppSelector } from '../../hooks';
-import { getOffer } from '../../store/selectors';
-import { fetchOfferAction } from '../../store/api-actions';
+import { getAuthStatus, getComments, getOffer } from '../../store/selectors';
+import { fetchCommentsAction, fetchOfferAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
+import { AuthorizationStatus } from '../../components/const';
+
 
 function Room(): JSX.Element {
   const { hotelId } = useParams();
 
   const offer = useAppSelector(getOffer);
+  const comments = useAppSelector(getComments);
   console.log({ offer });
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchOfferAction(hotelId));
+    dispatch(fetchCommentsAction(hotelId));
   }, [dispatch, hotelId]);
+
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
 
   if (!offer) {
     return <p>No places to stay available</p>;
@@ -108,7 +115,7 @@ function Room(): JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={offer?.host?.avatarUrl}
+                      src={offer.host?.avatarUrl}
                       width="100%"
                       height="100%"
                       alt="Host avatar"
@@ -125,39 +132,42 @@ function Room(): JSX.Element {
                   <p className="property__text">{offer.title}</p>
                 </div>
               </div>
+
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews &middot; <span className="reviews__amount">1</span>
+                  Reviews &middot; <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width="54"
-                          height="54"
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }}></span>
-                          <span className="visually-hidden">Rating</span>
+                  {comments.map((comment) => (
+                    <li className="reviews__item" key={comment.id}>
+                      <div className="reviews__user user">
+                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                          <img
+                            className="reviews__avatar user__avatar"
+                            src={comment.user.avatarUrl}
+                            width="54"
+                            height="54"
+                            alt="Reviews avatar"
+                          />
                         </div>
+                        <span className="reviews__user-name">{comment.user.name}</span>
                       </div>
-                      <p className="reviews__text">{offer.description}</p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
+                      <div className="reviews__info">
+                        <div className="reviews__rating rating">
+                          <div className="reviews__stars rating__stars">
+                            <span style={{ width: `${comment.rating * 20 }%` }}></span>
+                            <span className="visually-hidden">Rating</span>
+                          </div>
+                        </div>
+                        <p className="reviews__text">{comment.comment}</p>
+                        <time className="reviews__time" dateTime="2019-04-24">
+                          {comment.date}
+                        </time>
+                      </div>
+                    </li>
+                  ))}
                 </ul>
-                <ReviewForm />
+                {isAuth && <ReviewForm />}
               </section>
             </div>
           </div>

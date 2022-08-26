@@ -10,6 +10,7 @@ import {
   setOffer,
   redirectToRoute,
   setUser,
+  setComments,
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -22,6 +23,8 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { Offer } from '../types/offer.js';
 import { store } from './';
+import { CommentsData } from '../types/comments-data.js';
+import { CommentData } from '../types/comment-data.js';
 
 export const clearErrorAction = createAsyncThunk('game/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
@@ -121,4 +124,36 @@ export const logoutAction = createAsyncThunk<
   dispatch(setUser(null));
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   dispatch(redirectToRoute(AppRoute.Login));
+});
+
+export const fetchCommentsAction = createAsyncThunk<
+  void,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchComments', async (id, { dispatch, extra: api }) => {
+  dispatch(setDataLoadedStatus(true));
+  const { data } = await api.get<CommentsData[]>(`${APIRoute.Comments}/${id}`);
+  dispatch(setComments(data));
+  dispatch(setDataLoadedStatus(false));
+});
+
+export const addCommentAction = createAsyncThunk<
+  void,
+  CommentData & {id: string},
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/addComment', async ({id, comment, rating }, { dispatch, extra: api }) => {
+  const {
+    data
+  } = await api.post<CommentsData[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
+  dispatch(setDataLoadedStatus(true));
+  dispatch(setComments(data));
+  dispatch(setDataLoadedStatus(false));
 });

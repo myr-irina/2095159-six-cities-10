@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../components/const';
+import { CommentsData } from '../types/comments-data';
 import {Offer} from '../types/offer';
 import { UserData } from '../types/user-data';
 
@@ -12,6 +13,6 @@ export const setFavoriteOffers = createAction<Offer[]>('data/setFavoriteOffers')
 export const setOffer = createAction<Offer>('data/setOffer');
 export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');
 export const setUser = createAction<UserData | null>('data/setUser');
-export const getUser = createAction<UserData | null>('data/getUser');
+export const setComments = createAction<CommentsData[]>('comment/setComments');
 
 

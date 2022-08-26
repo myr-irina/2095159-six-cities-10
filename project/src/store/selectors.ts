@@ -12,5 +12,5 @@ export const getOffer = createSelector(getStore, ({ offer }) => offer);
 export const getUser = createSelector(getStore, ({ user }) => user);
 export const getAuthStatus = createSelector(getStore, ({authorizationStatus})=> authorizationStatus);
 export const getLoadedData = createSelector(getStore, ({isDataLoaded}) => isDataLoaded);
-export const setUser = createSelector(getStore, ({ user }) => user);
+export const getComments = createSelector(getStore, ({ comments }) => comments);
 
