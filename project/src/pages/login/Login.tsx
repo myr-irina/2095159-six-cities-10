@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
@@ -11,6 +12,7 @@ function Login(): JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
+    console.log('HELLO');
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {

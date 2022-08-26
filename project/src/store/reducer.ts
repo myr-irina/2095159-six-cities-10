@@ -3,6 +3,7 @@ import { AuthorizationStatus } from '../components/const';
 import { Offer } from '../types/offer';
 import { UserData } from '../types/user-data';
 import {
+  getUser,
   requireAuthorization,
   setActiveCity,
   setDataLoadedStatus,
@@ -41,6 +42,7 @@ const initialState: InitialState = {
       name: '',
     },
     description: '',
+    goods: [],
     location: {
       latitude: 0,
       longitude: 0,
@@ -93,6 +95,9 @@ const reducer = createReducer(initialState, (builder) => {
       state.offer = action.payload;
     })
     .addCase(setUser, (state, action) => {
+      state.user = action.payload;
+    })
+    .addCase(getUser, (state, action) => {
       state.user = action.payload;
     });
 });

@@ -12,10 +12,15 @@ function Header() {
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
   const user = useAppSelector(getUser);
+  console.log(user);
+  console.log(localStorage.getItem('token'));
 
+
+  if (!user && localStorage.getItem('token')) {
+    dispatch(getUser);
+  }
 
   return (
-
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
@@ -31,7 +36,7 @@ function Header() {
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <span className="header__user-name user__name">
-                    {isAuth & user ? user.email : ''}
+                    {isAuth ? user.email : ''}
                   </span>
                   <span className="header__favorite-count">3</span>
                 </a>

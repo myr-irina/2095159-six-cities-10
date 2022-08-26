@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -8,18 +9,17 @@ import { getOffer } from '../../store/selectors';
 import { fetchOfferAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
 
-
 function Room(): JSX.Element {
   const { hotelId } = useParams();
 
   const offer = useAppSelector(getOffer);
+  console.log({ offer });
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchOfferAction(hotelId));
-  },[dispatch, hotelId]);
-
+  }, [dispatch, hotelId]);
 
   if (!offer) {
     return <p>No places to stay available</p>;
@@ -32,48 +32,15 @@ function Room(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[0]}
-                  alt="studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[1]}
-                  alt="studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[1]}
-                  alt="studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[1]}
-                  alt="studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[1]}
-                  alt="studio"
-                />
-              </div>
-              <div className="property__image-wrapper">
-                <img
-                  className="property__image"
-                  src={offer?.images[1]}
-                  alt="studio"
-                />
-              </div>
+              {offer.images.map((image) => (
+                <li className="property__image-wrapper" key={image}>
+                  <img
+                    className="property__image"
+                    src={image}
+                    alt={offer.type}
+                  />
+                </li>
+              ))}
             </div>
           </div>
 
@@ -128,16 +95,11 @@ function Room(): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">Wi-Fi</li>
-                  <li className="property__inside-item">Washing machine</li>
-                  <li className="property__inside-item">Towels</li>
-                  <li className="property__inside-item">Heating</li>
-                  <li className="property__inside-item">Coffee machine</li>
-                  <li className="property__inside-item">Baby seat</li>
-                  <li className="property__inside-item">Kitchen</li>
-                  <li className="property__inside-item">Dishwasher</li>
-                  <li className="property__inside-item">Cabel TV</li>
-                  <li className="property__inside-item">Fridge</li>
+                  {offer.goods.map((item) => (
+                    <li className="property__inside-item" key={offer.id}>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="property__host">
@@ -160,16 +122,7 @@ function Room(): JSX.Element {
                   </span>
                 </div>
                 <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by
-                    the unique lightness of Amsterdam. The building is green and
-                    from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
-                  </p>
+                  <p className="property__text">{offer.title}</p>
                 </div>
               </div>
               <section className="property__reviews reviews">
@@ -197,11 +150,7 @@ function Room(): JSX.Element {
                           <span className="visually-hidden">Rating</span>
                         </div>
                       </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river
-                        by the unique lightness of Amsterdam. The building is
-                        green and from 18th century.
-                      </p>
+                      <p className="reviews__text">{offer.description}</p>
                       <time className="reviews__time" dateTime="2019-04-24">
                         April 2019
                       </time>

@@ -24,6 +24,7 @@ function Main(): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
 
+
   useEffect(()=> {
     dispatch(fetchOffersAction());
   },[dispatch]);
@@ -62,9 +63,10 @@ function Main(): JSX.Element {
                 method="get"
                 ref={ref}
               >
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption" >Sort by </span>
                 <span
                   className="places__sorting-type"
+                  style={{paddingLeft: '5px'}}
                   tabIndex="0"
                   onClick={handlePopupClick}
                 >

@@ -1,4 +1,5 @@
 export type Offer = {
+  goods: string[];
   id: number;
   bedrooms: number;
   city: {
