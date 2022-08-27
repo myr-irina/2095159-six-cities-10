@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable no-console */
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
@@ -102,11 +104,14 @@ export const loginAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/login', async ({ email, password }, { dispatch, extra: api }) => {
-  const {
-    data: { token },
-  } = await api.post<UserData>(APIRoute.Login, { email, password });
-  saveToken(token);
+  const { data } = await api.post<UserData>(APIRoute.Login, {
+    email,
+    password,
+  });
+  saveToken(data.token);
+  dispatch(setUser(data));
   dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  console.log(localStorage.getItem('token123'));
   dispatch(redirectToRoute(AppRoute.Main));
 });
 
@@ -143,17 +148,21 @@ export const fetchCommentsAction = createAsyncThunk<
 
 export const addCommentAction = createAsyncThunk<
   void,
-  CommentData & {id: string},
+  CommentData & { id: string },
   {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }
->('data/addComment', async ({id, comment, rating }, { dispatch, extra: api }) => {
-  const {
-    data
-  } = await api.post<CommentsData[]>(`${APIRoute.Comments}/${id}`, { comment, rating });
-  dispatch(setDataLoadedStatus(true));
-  dispatch(setComments(data));
-  dispatch(setDataLoadedStatus(false));
-});
+>(
+  'data/addComment',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    const { data } = await api.post<CommentsData[]>(
+      `${APIRoute.Comments}/${id}`,
+      { comment, rating }
+    );
+    dispatch(setDataLoadedStatus(true));
+    dispatch(setComments(data));
+    dispatch(setDataLoadedStatus(false));
+  }
+);

@@ -3,24 +3,24 @@ import { useRef, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { AuthData } from '../../types/auth-data';
+// import { AuthData } from '../../types/auth-data';
 
 function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
+  // const onSubmit = (authData: AuthData) => {
+  //   dispatch(loginAction(authData));
+  // };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      dispatch(loginAction({
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      });
+      }));
     }
   };
 
