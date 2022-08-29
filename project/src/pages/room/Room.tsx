@@ -18,6 +18,8 @@ import { AppDispatch } from '../../types/state';
 import { AuthorizationStatus } from '../../components/const';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+
 
 function Room(): JSX.Element {
   const { hotelId } = useParams();
@@ -33,13 +35,15 @@ function Room(): JSX.Element {
   const offer = useAppSelector(getOffer);
   const comments = useAppSelector(getComments);
   const offersNearby = useAppSelector(getOffersNearby);
-
-
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
 
   if (!offer) {
     return <p>No places to stay available</p>;
+  }
+
+  if(Number(hotelId) !== offer.id) {
+    return <NotFoundScreen/>;
   }
 
   return (

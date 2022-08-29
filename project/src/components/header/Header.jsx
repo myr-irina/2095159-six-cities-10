@@ -2,8 +2,12 @@ import Logo from '../logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
-import { getUser, getAuthStatus} from './../../store/selectors';
-import { AuthorizationStatus } from '../const';
+import {
+  getUser,
+  getAuthStatus,
+  getFavoriteOffers,
+} from './../../store/selectors';
+import { APIRoute, AuthorizationStatus } from '../const';
 // import { useEffect } from 'react';
 
 function Header() {
@@ -12,6 +16,8 @@ function Header() {
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
   const user = useAppSelector(getUser);
+
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
   return (
     <header className="header">
@@ -31,15 +37,16 @@ function Header() {
                 <span className="header__user-name user__name">
                   {isAuth ? user.email : ''}
                 </span>
-                <span className="header__favorite-count">3
-                  <Link
-                    onClick={(evt) => {
-                      evt.preventDefault();
-                      dispatch(logoutAction());
-                    }}
-                    to="#"
-                  />
-                </span>
+                {/* <span className="header__favorite-count">{favoriteOffers.length} */}
+                <Link
+                  style={{ cursor: 'pointer' }}
+                  to={APIRoute.Favorite}
+                >
+                  <span className="header__favorite-count">
+                    {favoriteOffers.length}
+                  </span>
+                </Link>
+                {/* </span> */}
                 {/* </a> */}
               </li>
               <li className="header__nav-item">
@@ -51,7 +58,9 @@ function Header() {
                   }}
                   to="#"
                 >
-                  <span className="header__signout">{isAuth ? 'Sign out' : 'Sign in'}</span>
+                  <span className="header__signout">
+                    {isAuth ? 'Sign out' : 'Sign in'}
+                  </span>
                 </Link>
               </li>
             </ul>

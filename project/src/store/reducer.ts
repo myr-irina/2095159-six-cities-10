@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../components/const';
 import { CommentsData } from '../types/comments-data';
 import { Offer } from '../types/offer';
+import { SortType } from '../types/sort-type';
 import { UserData } from '../types/user-data';
 import {
   setComments,
@@ -14,6 +15,7 @@ import {
   setOffers,
   setUser,
   setOffersNearby,
+  setSort,
 } from './action';
 
 type InitialState = {
@@ -27,6 +29,7 @@ type InitialState = {
   isDataLoaded: boolean;
   user: UserData | null;
   comments: CommentsData[];
+  sort: SortType;
 };
 
 const initialState: InitialState = {
@@ -73,6 +76,7 @@ const initialState: InitialState = {
   isDataLoaded: false,
   user: null,
   comments: [],
+  sort: SortType.Popular,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -106,6 +110,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersNearby, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(setSort, (state, action) => {
+      state.sort = action.payload;
     });
 });
 

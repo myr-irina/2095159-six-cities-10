@@ -2,6 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../components/const';
 import { CommentsData } from '../types/comments-data';
 import {Offer} from '../types/offer';
+import { SortType } from '../types/sort-type';
 import { UserData } from '../types/user-data';
 
 export const setActiveCity = createAction<string>('offers/setActiveCity');
@@ -15,5 +16,6 @@ export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');
 export const setUser = createAction<UserData | null>('data/setUser');
 export const setComments = createAction<CommentsData[]>('comment/setComments');
 export const setOffersNearby = createAction<Offer[]>('data/setOffersNearby');
+export const setSort = createAction<SortType>('data/setSort');
 
 
