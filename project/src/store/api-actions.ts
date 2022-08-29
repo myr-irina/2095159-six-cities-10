@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-console */
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
@@ -13,6 +11,7 @@ import {
   redirectToRoute,
   setUser,
   setComments,
+  setOffersNearby,
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -111,7 +110,6 @@ export const loginAction = createAsyncThunk<
   saveToken(data.token);
   dispatch(setUser(data));
   dispatch(requireAuthorization(AuthorizationStatus.Auth));
-  console.log(localStorage.getItem('token123'));
   dispatch(redirectToRoute(AppRoute.Main));
 });
 
@@ -166,3 +164,18 @@ export const addCommentAction = createAsyncThunk<
     dispatch(setDataLoadedStatus(false));
   }
 );
+
+export const fetchOffersNearbyAction = createAsyncThunk<
+  void,
+  string | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchOffersNearby', async (id, { dispatch, extra: api }) => {
+  dispatch(setDataLoadedStatus(true));
+  const { data } = await api.get<Offer[]>(`${APIRoute.Offers}/${id}/nearby`);
+  dispatch(setOffersNearby(data));
+  dispatch(setDataLoadedStatus(false));
+});

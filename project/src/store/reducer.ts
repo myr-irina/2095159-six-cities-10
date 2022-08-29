@@ -13,6 +13,7 @@ import {
   setOffer,
   setOffers,
   setUser,
+  setOffersNearby,
 } from './action';
 
 type InitialState = {
@@ -102,7 +103,11 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setComments, (state, action) => {
       state.comments = action.payload;
+    })
+    .addCase(setOffersNearby, (state, action) => {
+      state.offers = action.payload;
     });
 });
 
 export { reducer };
+

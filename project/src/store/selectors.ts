@@ -13,4 +13,5 @@ export const getUser = createSelector(getStore, ({ user }) => user);
 export const getAuthStatus = createSelector(getStore, ({authorizationStatus})=> authorizationStatus);
 export const getLoadedData = createSelector(getStore, ({isDataLoaded}) => isDataLoaded);
 export const getComments = createSelector(getStore, ({ comments }) => comments);
+export const getOffersNearby = createSelector(getStore, ({ offers }) => offers);
 

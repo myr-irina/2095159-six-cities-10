@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Logo from '../logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
@@ -13,15 +12,6 @@ function Header() {
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
   const user = useAppSelector(getUser);
-  console.log(user);
-
-
-  // useEffect(() => {
-  //   if (!user && localStorage.getItem('token')) {
-  //     dispatch(setUser);
-  //   }
-  // }, [dispatch, user]);
-
 
   return (
     <header className="header">
@@ -33,16 +23,24 @@ function Header() {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <a
+                {/* <a
                   className="header__nav-link header__nav-link--profile"
                   href="/"
-                >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    {isAuth ? user.email : ''}
-                  </span>
-                  <span className="header__favorite-count">3</span>
-                </a>
+                > */}
+                <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                <span className="header__user-name user__name">
+                  {isAuth ? user.email : ''}
+                </span>
+                <span className="header__favorite-count">3
+                  <Link
+                    onClick={(evt) => {
+                      evt.preventDefault();
+                      dispatch(logoutAction());
+                    }}
+                    to="#"
+                  />
+                </span>
+                {/* </a> */}
               </li>
               <li className="header__nav-item">
                 <Link

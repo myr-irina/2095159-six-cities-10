@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
@@ -24,7 +23,6 @@ function FeedbackForm() {
   function handleTextAreaFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLTextAreaElement;
     const { name, value } = target;
-    console.log({ name, value });
 
     setFormData({ ...formData, [name]: value });
   }
@@ -49,7 +47,6 @@ function FeedbackForm() {
       action="#"
       method="post"
       name="update"
-      // onSubmit={(e) => handleSubmitForm(e)}
       onSubmit={handleSubmitForm}
     >
       <label className="reviews__label form__label" htmlFor="review">

@@ -14,5 +14,6 @@ export const setOffer = createAction<Offer>('data/setOffer');
 export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');
 export const setUser = createAction<UserData | null>('data/setUser');
 export const setComments = createAction<CommentsData[]>('comment/setComments');
+export const setOffersNearby = createAction<Offer[]>('data/setOffersNearby');
 
 
