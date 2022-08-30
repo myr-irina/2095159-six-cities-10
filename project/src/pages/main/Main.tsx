@@ -17,8 +17,7 @@ function Main(): JSX.Element {
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
     undefined
   );
-  // const [sortingMethod, setSortingMethod] = useState('Popular');
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   const filteredOffers = useAppSelector(getSortedOffers);
@@ -40,27 +39,6 @@ function Main(): JSX.Element {
     return <LoadingScreen/>;
   }
 
-  // function sortbyText(a, b) {
-  //   return a.localeCompare(b, 'ru');
-  // }
-
-  // function sortByNumDesc(a, b) {
-  //   return +b[0] - +a[0];
-  // }
-
-  // function sortByNumAsc(a, b) {
-  //   return +a[0] - +b[0];
-  // }
-
-
-  // function sortArray(sortBy) {
-  //   return [...filteredOffers].sort((a, b) => {
-  //     if (sortBy === 'Price: low to high') {
-  //       return a.price - b.price;
-  //     }
-  //   });
-  // }
-
 
   return (
     <div className="page page--gray page--main">
@@ -79,7 +57,6 @@ function Main(): JSX.Element {
               <CardList
                 offers={filteredOffers}
                 onListItemHover={onListItemHover}
-                // sortingMethod={sortingMethod}
               />
             </section>
             <div className="cities__right-section">

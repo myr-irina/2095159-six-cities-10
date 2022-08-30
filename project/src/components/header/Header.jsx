@@ -8,7 +8,7 @@ import {
   getFavoriteOffers,
 } from './../../store/selectors';
 import { APIRoute, AuthorizationStatus } from '../const';
-// import { useEffect } from 'react';
+
 
 function Header() {
   const dispatch = useAppDispatch();

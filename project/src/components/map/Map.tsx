@@ -8,7 +8,6 @@ import { Offer } from '../../types/offer';
 type MapScreenProps = {
   offers: Offer[];
   selectedOfferId?: number;
-  // currentOfferId?: number;
 };
 
 const defaultCustomIcon = new Icon({

@@ -5,13 +5,11 @@ import { Offer } from '../../types/offer';
 type CardListScreenProps = {
   offers: Offer[];
   onListItemHover: (listItemName: number) => void;
-  // sortingMethod: string | number;
 };
 
 function CardList({
   offers,
   onListItemHover,
-  // sortingMethod,
 }: CardListScreenProps): JSX.Element {
 
 
