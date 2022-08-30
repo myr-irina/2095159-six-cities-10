@@ -10,11 +10,12 @@ import { AppDispatch } from '../../types/state';
 
 function Favorites() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
+  useEffect(()=> {
     dispatch(fetchFavoriteOffersAction());
-  });
+  },[dispatch]);
 
   return (
     <div className="page">

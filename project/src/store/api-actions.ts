@@ -71,6 +71,7 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   }
 >('data/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setDataLoadedStatus(true));
+  dispatch(requireAuthorization(AuthorizationStatus.Auth));
   const { data } = await api.get<Offer[]>(APIRoute.Favorite);
   dispatch(setFavoriteOffers(data));
   dispatch(setDataLoadedStatus(false));

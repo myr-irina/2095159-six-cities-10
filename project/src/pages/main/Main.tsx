@@ -13,10 +13,7 @@ import SortPopup from '../../components/sort-popup/sort-popup';
 
 
 function Main(): JSX.Element {
-
-  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
-    undefined
-  );
+  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
   const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
