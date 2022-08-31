@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { setSort } from '../../store/action';
 import { getSort } from '../../store/selectors';
 import { SortType } from '../../types/sort-type';
@@ -26,17 +25,16 @@ const SORT_MAP: {id: SortType, value: string}[] = [
 ];
 
 
-function SortPopup({parentRef}: any){
+function SortPopup(){
   const dispatch = useDispatch();
   const [popupIsVisible, setPopupIsVisible] = useState(false);
-  useOnClickOutside(parentRef, () => setPopupIsVisible(false));
 
   function handlePopupClick() {
     setPopupIsVisible((current) => !current);
   }
 
   const handleSort = (sortType: SortType) => {
-    setPopupIsVisible((current) => !current);
+    setPopupIsVisible(false);
     dispatch(setSort(sortType));
   };
 

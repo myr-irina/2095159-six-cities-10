@@ -14,8 +14,6 @@ import {
   setOffersNearby,
   setFavoriteOffer,
   updateFavoriteOffers,
-  // setFavoriteOffer,
-
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -131,7 +129,6 @@ export const fetchCommentsAction = createAsyncThunk<
 >('data/fetchComments', async (id, { dispatch, extra: api }) => {
 
   const { data } = await api.get<CommentsData[]>(`${APIRoute.Comments}/${id}`);
-  //поменять loaded на loading
   dispatch(setDataLoadedStatus(true));
   dispatch(setComments(data));
   dispatch(setDataLoadedStatus(false));
@@ -185,49 +182,29 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   dispatch(setDataLoadedStatus(true));
   dispatch(requireAuthorization(AuthorizationStatus.Auth));
   const { data } = await api.get<Offer[]>(APIRoute.Favorite);
-  // eslint-disable-next-line no-console
-  console.log(data);
   dispatch(setFavoriteOffers(data));
   dispatch(setDataLoadedStatus(false));
 });
 
 export const changeFavoriteStatusAction = createAsyncThunk<
-  void,
-  any | undefined,
+void,
+{
+  hotelId: number;
+  isFavorite?: boolean;
+},
   {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }
->('data/changeFavoriteStatusAction', async ({ hotelId , isFavorite }: any, { dispatch, extra: api }) => {
+>('data/changeFavoriteStatusAction', async ({ hotelId , isFavorite }, { dispatch, extra: api }) => {
   const isFavoriteStatus = isFavorite ? 1 : 0;
   const { data } = await api.post<Offer>(
-    `${APIRoute.Favorite}/${hotelId }/${isFavoriteStatus}`
+    `${APIRoute.Favorite}/${hotelId}/${isFavoriteStatus}`
   );
-  // eslint-disable-next-line no-console
-  console.log(data);
 
   dispatch(setDataLoadedStatus(true));
   dispatch(setFavoriteOffer(data));
   dispatch(updateFavoriteOffers({offer: data, isFavorite}));
   dispatch(setDataLoadedStatus(false));
 });
-
-// export const removeFavoriteStatus = createAsyncThunk<
-//   void,
-//   any | undefined,
-//   {
-//     dispatch: AppDispatch;
-//     state: State;
-//     extra: AxiosInstance;
-//   }
-// >('data/addFavoriteAction', async ({ hotelId , isFavorite }: any, { dispatch, extra: api }) => {
-//   const isFavoriteStatus = isFavorite ? 1 : 0;
-//   const { data } = await api.post<Offer>(
-//     `${APIRoute.Favorite}/${hotelId }/${isFavoriteStatus}`
-//   );
-//   dispatch(setDataLoadedStatus(true));
-//   dispatch(setFavoriteOffer(data));
-//   dispatch(setDataLoadedStatus(false));
-// });
-

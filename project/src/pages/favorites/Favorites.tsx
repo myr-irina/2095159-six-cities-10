@@ -10,14 +10,13 @@ import { AppDispatch } from '../../types/state';
 
 function Favorites() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
-  // eslint-disable-next-line no-console
-  console.log({ favoriteOffers });
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
+
 
   return (
     <div className="page">

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CardList from '../../components/card-list/CardList';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
@@ -14,7 +14,6 @@ import SortPopup from '../../components/sort-popup/sort-popup';
 
 function Main(): JSX.Element {
   const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
-  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   const filteredOffers = useAppSelector(getSortedOffers);
@@ -51,7 +50,7 @@ function Main(): JSX.Element {
               <p className="places__found">
                 {filteredOffers.length} places to stay in {activeCity}
               </p>
-              <SortPopup parentRef={ref}/>
+              <SortPopup />
               <CardList
                 offers={filteredOffers}
                 onListItemHover={onListItemHover}
