@@ -8,6 +8,8 @@ type PrivateRouteProps = {
 
 function PrivateRoute(props: PrivateRouteProps) {
   const { authorizationStatus, children } = props;
+  // eslint-disable-next-line no-console
+  console.log({authorizationStatus});
   return authorizationStatus === AuthorizationStatus.Auth ? (
     children
   ) : (

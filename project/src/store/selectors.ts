@@ -38,3 +38,4 @@ export const getSortedOffers = createSelector(
   (offers, sortType) =>
     SORT_METHOD[sortType] ? offers.sort(SORT_METHOD[sortType]) : offers
 );
+

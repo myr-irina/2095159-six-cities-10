@@ -7,7 +7,7 @@ import { CommentData } from '../../types/comment-data';
 function FeedbackForm() {
   const [formData, setFormData] = useState<CommentData>({
     comment: '',
-    rating: '',
+    rating: '0',
   });
 
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ function FeedbackForm() {
         rating: formData.rating,
       });
     }
-    setFormData({ ...formData, comment: '', rating: '' });
+    setFormData({ ...formData, comment: '', rating: '0' });
   };
 
   return (
@@ -162,7 +162,7 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formData.comment}
+          disabled={!formData.comment !== null && !formData.rating}
         >
           Submit
         </button>

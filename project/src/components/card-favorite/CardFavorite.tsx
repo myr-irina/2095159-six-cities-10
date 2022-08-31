@@ -1,16 +1,25 @@
+import { useAppDispatch } from '../../hooks';
+import { changeFavoriteStatusAction } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 
-type CardWithReviewsScreenProps = {
+type CardFavoriteScreenProps = {
   offer: Offer;
   onMouseOver: () => void;
   isActive: boolean;
 };
 
-function CardWithReviews({
+function CardFavorite({
   offer,
   onMouseOver,
   isActive,
-}: CardWithReviewsScreenProps) {
+}: CardFavoriteScreenProps) {
+  const dispatch = useAppDispatch();
+
+  const removeFromFavorite = () => {
+    dispatch(changeFavoriteStatusAction({hotelId: offer.id}));
+  };
+
+
   return (
     <article
       className="favorites__card place-card"
@@ -39,6 +48,7 @@ function CardWithReviews({
           <button
             className="place-card__bookmark-button place-card__bookmark-button--active button"
             type="button"
+            onClick={removeFromFavorite}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -61,4 +71,4 @@ function CardWithReviews({
   );
 }
 
-export default CardWithReviews;
+export default CardFavorite;

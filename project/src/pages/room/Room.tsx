@@ -6,6 +6,7 @@ import { useAppSelector } from '../../hooks';
 import {
   getAuthStatus,
   getComments,
+  getLoadedData,
   getOffer,
   getOffersNearby,
 } from '../../store/selectors';
@@ -19,6 +20,7 @@ import { AuthorizationStatus } from '../../components/const';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 function Room(): JSX.Element {
@@ -37,6 +39,11 @@ function Room(): JSX.Element {
   const offersNearby = useAppSelector(getOffersNearby);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
+  const isLoading = useAppSelector(getLoadedData);
+
+  if(isLoading) {
+    return <LoadingScreen/>;
+  }
 
   if (!offer) {
     return <p>No places to stay available</p>;

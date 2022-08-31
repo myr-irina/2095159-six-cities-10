@@ -12,6 +12,10 @@ import {
   setUser,
   setComments,
   setOffersNearby,
+  setFavoriteOffer,
+  updateFavoriteOffers,
+  // setFavoriteOffer,
+
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -26,6 +30,7 @@ import { Offer } from '../types/offer.js';
 import { store } from './';
 import { CommentsData } from '../types/comments-data.js';
 import { CommentData } from '../types/comment-data.js';
+
 
 export const clearErrorAction = createAsyncThunk('game/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
@@ -61,21 +66,6 @@ export const fetchOfferAction = createAsyncThunk<
   dispatch(setDataLoadedStatus(false));
 });
 
-export const fetchFavoriteOffersAction = createAsyncThunk<
-  void,
-  undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: AxiosInstance;
-  }
->('data/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
-  dispatch(setDataLoadedStatus(true));
-  dispatch(requireAuthorization(AuthorizationStatus.Auth));
-  const { data } = await api.get<Offer[]>(APIRoute.Favorite);
-  dispatch(setFavoriteOffers(data));
-  dispatch(setDataLoadedStatus(false));
-});
 
 export const checkAuthAction = createAsyncThunk<
   void,
@@ -139,8 +129,10 @@ export const fetchCommentsAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchComments', async (id, { dispatch, extra: api }) => {
-  dispatch(setDataLoadedStatus(true));
+
   const { data } = await api.get<CommentsData[]>(`${APIRoute.Comments}/${id}`);
+  //поменять loaded на loading
+  dispatch(setDataLoadedStatus(true));
   dispatch(setComments(data));
   dispatch(setDataLoadedStatus(false));
 });
@@ -180,3 +172,62 @@ export const fetchOffersNearbyAction = createAsyncThunk<
   dispatch(setOffersNearby(data));
   dispatch(setDataLoadedStatus(false));
 });
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
+  dispatch(setDataLoadedStatus(true));
+  dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+  // eslint-disable-next-line no-console
+  console.log(data);
+  dispatch(setFavoriteOffers(data));
+  dispatch(setDataLoadedStatus(false));
+});
+
+export const changeFavoriteStatusAction = createAsyncThunk<
+  void,
+  any | undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('data/changeFavoriteStatusAction', async ({ hotelId , isFavorite }: any, { dispatch, extra: api }) => {
+  const isFavoriteStatus = isFavorite ? 1 : 0;
+  const { data } = await api.post<Offer>(
+    `${APIRoute.Favorite}/${hotelId }/${isFavoriteStatus}`
+  );
+  // eslint-disable-next-line no-console
+  console.log(data);
+
+  dispatch(setDataLoadedStatus(true));
+  dispatch(setFavoriteOffer(data));
+  dispatch(updateFavoriteOffers({offer: data, isFavorite}));
+  dispatch(setDataLoadedStatus(false));
+});
+
+// export const removeFavoriteStatus = createAsyncThunk<
+//   void,
+//   any | undefined,
+//   {
+//     dispatch: AppDispatch;
+//     state: State;
+//     extra: AxiosInstance;
+//   }
+// >('data/addFavoriteAction', async ({ hotelId , isFavorite }: any, { dispatch, extra: api }) => {
+//   const isFavoriteStatus = isFavorite ? 1 : 0;
+//   const { data } = await api.post<Offer>(
+//     `${APIRoute.Favorite}/${hotelId }/${isFavoriteStatus}`
+//   );
+//   dispatch(setDataLoadedStatus(true));
+//   dispatch(setFavoriteOffer(data));
+//   dispatch(setDataLoadedStatus(false));
+// });
+

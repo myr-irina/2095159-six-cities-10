@@ -25,7 +25,8 @@ const SORT_MAP: {id: SortType, value: string}[] = [
   },
 ];
 
-function SortPopup({parentRef}:any) {
+
+function SortPopup({parentRef}: any){
   const dispatch = useDispatch();
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   useOnClickOutside(parentRef, () => setPopupIsVisible(false));

@@ -6,7 +6,7 @@ import { useAppSelector } from '../../hooks';
 import { getActiveCity, getOffers, getSortedOffers } from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
 import { useDispatch } from 'react-redux';
-import { fetchOffersAction } from '../../store/api-actions';
+import { fetchOffersAction, fetchFavoriteOffersAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { AppDispatch } from '../../types/state';
 import SortPopup from '../../components/sort-popup/sort-popup';
@@ -24,6 +24,7 @@ function Main(): JSX.Element {
 
   useEffect(()=> {
     dispatch(fetchOffersAction());
+    dispatch(fetchFavoriteOffersAction());
   },[dispatch]);
 
 
@@ -66,3 +67,5 @@ function Main(): JSX.Element {
   );
 }
 export default Main;
+
+

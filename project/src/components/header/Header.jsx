@@ -43,7 +43,7 @@ function Header() {
                     </span>
                   </Link>
                   <span className="header__favorite-count">
-                    {favoriteOffers.length}
+                    {isAuth ? favoriteOffers.length : ''}
                   </span>
                 </div>
               </li>

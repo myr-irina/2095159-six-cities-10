@@ -10,12 +10,14 @@ import { AppDispatch } from '../../types/state';
 
 function Favorites() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
+  // eslint-disable-next-line no-console
+  console.log({ favoriteOffers });
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
-  },[dispatch]);
+  }, [dispatch]);
 
   return (
     <div className="page">
@@ -30,19 +32,6 @@ function Favorites() {
                   <div className="locations__item">
                     <a className="locations__item-link" href="/">
                       <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <CardListFavorites offers={favoriteOffers} />
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
                     </a>
                   </div>
                 </div>

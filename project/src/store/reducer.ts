@@ -16,6 +16,8 @@ import {
   setUser,
   setOffersNearby,
   setSort,
+  setFavoriteOffer,
+  updateFavoriteOffers,
 } from './action';
 
 type InitialState = {
@@ -113,6 +115,22 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSort, (state, action) => {
       state.sort = action.payload;
+    })
+    .addCase(setFavoriteOffer, (state, action) => {
+      state.offers = state.offers.map((offer)=> {
+        if(offer.id === action.payload.id) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
+        return offer;
+      });
+    })
+    .addCase(updateFavoriteOffers, (state, action) => {
+      const {offer, isFavorite} = action.payload;
+      if(isFavorite) {
+        state.favoriteOffers.push(offer);
+      } else {
+        state.favoriteOffers = state.favoriteOffers.filter((item)=> item.id !== offer.id);
+      }
     });
 });
 

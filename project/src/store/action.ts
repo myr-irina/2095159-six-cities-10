@@ -17,5 +17,8 @@ export const setUser = createAction<UserData | null>('data/setUser');
 export const setComments = createAction<CommentsData[]>('comment/setComments');
 export const setOffersNearby = createAction<Offer[]>('data/setOffersNearby');
 export const setSort = createAction<SortType>('data/setSort');
+export const setFavoriteOffer = createAction<Offer>('data/setFavoriteOffer');
+export const setOfferWithoutFavorite = createAction<Offer>('data/setOfferWithoutFavorite');
+export const updateFavoriteOffers = createAction<{offer: Offer, isFavorite: boolean}>('data/updateFavoriteOffers');
 
 
