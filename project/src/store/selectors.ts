@@ -19,6 +19,17 @@ export const getFavoriteOffers = createSelector(
   getStore,
   ({ favoriteOffers }) => favoriteOffers
 );
+export const getGrouppedFavoriteOffers = createSelector(
+  getFavoriteOffers,
+  ( favoriteOffers ) => favoriteOffers.reduce((acc: { [x: string]: Offer[]; }, offer: Offer) => {
+    const city = offer.city.name;
+    if(!acc[city]) {
+      acc[city] = [];
+    }
+    acc[city].push(offer);
+    return acc;
+  }, {})
+);
 export const getOffer = createSelector(getStore, ({ offer }) => offer);
 export const getUser = createSelector(getStore, ({ user }) => user);
 export const getAuthStatus = createSelector(
@@ -38,4 +49,5 @@ export const getSortedOffers = createSelector(
   (offers, sortType) =>
     SORT_METHOD[sortType] ? offers.sort(SORT_METHOD[sortType]) : offers
 );
+export const getLoadingStatus = createSelector(getStore, ({isLoading}) => isLoading);
 

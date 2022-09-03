@@ -18,6 +18,7 @@ import {
   setSort,
   setFavoriteOffer,
   updateFavoriteOffers,
+  setLoadingStatus,
 } from './action';
 
 type InitialState = {
@@ -32,6 +33,7 @@ type InitialState = {
   user: UserData | null;
   comments: CommentsData[];
   sort: SortType;
+  isLoading: boolean;
 };
 
 const initialState: InitialState = {
@@ -76,6 +78,7 @@ const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
   isDataLoaded: false,
+  isLoading: false,
   user: null,
   comments: [],
   sort: SortType.Popular,
@@ -97,6 +100,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
+    })
+    .addCase(setLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
     })
     .addCase(setFavoriteOffers, (state, action) => {
       state.favoriteOffers = action.payload;

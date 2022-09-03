@@ -10,6 +10,7 @@ export const setOffers = createAction<Offer[]>('data/setOffers');
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const setError = createAction<string | null>('offers/setError');
 export const setDataLoadedStatus = createAction<boolean>('data/setDataLoadedStatus');
+export const setLoadingStatus = createAction<boolean>('data/setLoadingStatus');
 export const setFavoriteOffers = createAction<Offer[]>('data/setFavoriteOffers');
 export const setOffer = createAction<Offer>('data/setOffer');
 export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');

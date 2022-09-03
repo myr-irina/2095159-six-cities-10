@@ -9,10 +9,17 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
 import { useAppSelector } from '../../hooks';
-import { getAuthStatus } from '../../store/selectors';
+import { getAuthStatus, getLoadingStatus } from '../../store/selectors';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function App(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
+  const isLoading = useAppSelector(getLoadingStatus);
+
+  if(isLoading) {
+    return <LoadingScreen/>;
+  }
+
 
   return (
     <HistoryRouter history={browserHistory}>

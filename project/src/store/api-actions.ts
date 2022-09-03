@@ -14,6 +14,7 @@ import {
   setOffersNearby,
   setFavoriteOffer,
   updateFavoriteOffers,
+  // setLoadingStatus,
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -30,7 +31,7 @@ import { CommentsData } from '../types/comments-data.js';
 import { CommentData } from '../types/comment-data.js';
 
 
-export const clearErrorAction = createAsyncThunk('game/clearError', () => {
+export const clearErrorAction = createAsyncThunk('data/clearError', () => {
   setTimeout(() => store.dispatch(setError(null)), TIMEOUT_SHOW_ERROR);
 });
 
@@ -57,7 +58,7 @@ export const fetchOfferAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchOffers', async (id, { dispatch, extra: api }) => {
+>('data/fetchOffer', async (id, { dispatch, extra: api }) => {
   dispatch(setDataLoadedStatus(true));
   const { data } = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
   dispatch(setOffer(data));
@@ -74,6 +75,7 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
+  // dispatch(setLoadingStatus(true));
   try {
     const { data } = await api.get(APIRoute.Login);
     dispatch(setUser(data));
@@ -81,6 +83,7 @@ export const checkAuthAction = createAsyncThunk<
   } catch {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
+  // dispatch(setLoadingStatus(false));
 });
 
 export const loginAction = createAsyncThunk<

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import CardListFavorites from '../../components/card-list-favorites/CardListFavorites';
@@ -5,11 +6,12 @@ import Header from '../../components/header/Header';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
-import { getFavoriteOffers } from '../../store/selectors';
+import { getGrouppedFavoriteOffers } from '../../store/selectors';
+// import { Offer } from '../../types/offer';
 import { AppDispatch } from '../../types/state';
 
 function Favorites() {
-  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const favoriteOffers = useAppSelector(getGrouppedFavoriteOffers);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -17,6 +19,19 @@ function Favorites() {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
+  const favoriteList = Object.keys(favoriteOffers).map((city) => (
+    <li className="favorites__locations-items" key={city}>
+      <div className="favorites__locations locations locations--current">
+        <div className="locations__item">
+          <a className="locations__item-link" href="/">
+            <span>{city}</span>
+          </a>
+        </div>
+      </div>
+      <div className="favorites__places">
+        <CardListFavorites offers={favoriteOffers[city]} />
+      </div>
+    </li>));
 
   return (
     <div className="page">
@@ -26,18 +41,7 @@ function Favorites() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <CardListFavorites offers={favoriteOffers} />
-                </div>
-              </li>
+              {favoriteList}
             </ul>
           </section>
         </div>
