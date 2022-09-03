@@ -21,7 +21,7 @@ export type Offer = {
   isPremium: boolean;
   previewImage: string;
   maxAdults?: number;
-  host?: {
+  host: {
     avatarUrl: string;
     id: number;
     isPro: boolean;

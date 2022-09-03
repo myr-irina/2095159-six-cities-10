@@ -3,39 +3,44 @@ import CardList from '../../components/card-list/CardList';
 import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import { useAppSelector } from '../../hooks';
-import { getActiveCity, getOffers, getSortedOffers } from '../../store/selectors';
+import {
+  getActiveCity,
+  getOffers,
+  getSortedOffers,
+} from '../../store/selectors';
 import CityList from '../../components/city-list/cityList';
 import { useDispatch } from 'react-redux';
-import { fetchOffersAction, fetchFavoriteOffersAction } from '../../store/api-actions';
+import {
+  fetchOffersAction,
+  fetchFavoriteOffersAction,
+} from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { AppDispatch } from '../../types/state';
 import SortPopup from '../../components/sort-popup/sort-popup';
 
-
 function Main(): JSX.Element {
-  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(undefined);
+  const [selectedOfferId, setSelectedOfferId] = useState<number | undefined>(
+    undefined
+  );
   const dispatch = useDispatch<AppDispatch>();
 
   const filteredOffers = useAppSelector(getSortedOffers);
   const activeCity = useAppSelector(getActiveCity);
   const offers = useAppSelector(getOffers);
 
-
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchOffersAction());
     dispatch(fetchFavoriteOffersAction());
-  },[dispatch]);
-
+  }, [dispatch]);
 
   function onListItemHover(listItemId: number) {
     const currentOffer = offers.find((offer) => offer.id === listItemId);
     setSelectedOfferId(currentOffer?.id);
   }
 
-  if(!filteredOffers.length) {
-    return <LoadingScreen/>;
+  if (!filteredOffers.length) {
+    return <LoadingScreen />;
   }
-
 
   return (
     <div className="page page--gray page--main">
@@ -48,16 +53,25 @@ function Main(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <p className="places__found">
-                {filteredOffers.length} places to stay in {activeCity}
+                {filteredOffers.length > 0
+                  ? `${filteredOffers.length} places to stay in ${activeCity}`
+                  : 'No places to stay available'}
               </p>
               <SortPopup />
-              <CardList
-                offers={filteredOffers}
-                onListItemHover={onListItemHover}
-              />
+              {filteredOffers.length > 0 && (
+                <CardList
+                  offers={filteredOffers}
+                  onListItemHover={onListItemHover}
+                />
+              )}
             </section>
             <div className="cities__right-section">
-              <Map offers={filteredOffers} selectedOfferId={selectedOfferId} />
+              {filteredOffers.length > 0 && (
+                <Map
+                  offers={filteredOffers}
+                  selectedOfferId={selectedOfferId}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -66,5 +80,3 @@ function Main(): JSX.Element {
   );
 }
 export default Main;
-
-

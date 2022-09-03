@@ -21,14 +21,15 @@ export const getFavoriteOffers = createSelector(
 );
 export const getGrouppedFavoriteOffers = createSelector(
   getFavoriteOffers,
-  ( favoriteOffers ) => favoriteOffers.reduce((acc: { [x: string]: Offer[]; }, offer: Offer) => {
-    const city = offer.city.name;
-    if(!acc[city]) {
-      acc[city] = [];
-    }
-    acc[city].push(offer);
-    return acc;
-  }, {})
+  (favoriteOffers) =>
+    favoriteOffers.reduce((acc: { [x: string]: Offer[] }, offer: Offer) => {
+      const city = offer.city.name;
+      if (!acc[city]) {
+        acc[city] = [];
+      }
+      acc[city].push(offer);
+      return acc;
+    }, {})
 );
 export const getOffer = createSelector(getStore, ({ offer }) => offer);
 export const getUser = createSelector(getStore, ({ user }) => user);
@@ -40,7 +41,13 @@ export const getLoadedData = createSelector(
   getStore,
   ({ isDataLoaded }) => isDataLoaded
 );
-export const getComments = createSelector(getStore, ({ comments }) => comments);
+export const getComments = createSelector(getStore, ({ comments }) =>
+  comments.slice(0, 10).sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return +dateB - +dateA;
+  })
+);
 export const getOffersNearby = createSelector(getStore, ({ offers }) => offers);
 export const getSort = createSelector(getStore, ({ sort }) => sort);
 export const getSortedOffers = createSelector(
@@ -49,5 +56,7 @@ export const getSortedOffers = createSelector(
   (offers, sortType) =>
     SORT_METHOD[sortType] ? offers.sort(SORT_METHOD[sortType]) : offers
 );
-export const getLoadingStatus = createSelector(getStore, ({isLoading}) => isLoading);
-
+export const getLoadingStatus = createSelector(
+  getStore,
+  ({ isLoading }) => isLoading
+);

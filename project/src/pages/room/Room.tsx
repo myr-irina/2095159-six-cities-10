@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import ReviewForm from '../../components/feedback-form/FeedbackForm';
+// import ReviewForm from '../../components/feedback-form/FeedbackForm';
 import { useAppSelector } from '../../hooks';
 import {
   getAuthStatus,
-  getComments,
+  // getComments,
   getLoadedData,
   getOffer,
   getOffersNearby,
@@ -21,6 +21,7 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
+import Reviews from '../../components/reviews/reviews';
 
 
 function Room(): JSX.Element {
@@ -35,7 +36,7 @@ function Room(): JSX.Element {
   }, [dispatch, hotelId]);
 
   const offer = useAppSelector(getOffer);
-  const comments = useAppSelector(getComments);
+  // const comments = useAppSelector(getComments);
   const offersNearby = useAppSelector(getOffersNearby);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
@@ -43,10 +44,6 @@ function Room(): JSX.Element {
 
   if(isLoading) {
     return <LoadingScreen/>;
-  }
-
-  if (!offer) {
-    return <p>No places to stay available</p>;
   }
 
   if(Number(hotelId) !== offer.id) {
@@ -60,7 +57,7 @@ function Room(): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images.map((image) => (
+              {offer.images.slice(0,6).map((image) => (
                 <li className="property__image-wrapper" key={image}>
                   <img
                     className="property__image"
@@ -73,16 +70,17 @@ function Room(): JSX.Element {
           </div>
 
           <div className="property__container container">
-            <div className="property__wrapper">
+            <div className="property__wrapper" style={{position: 'relative'}}>
               <div className="property__mark">
-                <span>Premium {offer?.isPremium}</span>
+                <span>Premium {offer.isPremium}</span>
               </div>
               <div className="property__name-wrapper">
-                <h1 className="property__name">{offer?.description}</h1>
+                <h1 className="property__name">{offer.title}</h1>
 
                 <button
                   className="property__bookmark-button button"
                   type="button"
+                  style={{right: '60px'}}
                 >
                   <svg
                     className="property__bookmark-icon"
@@ -92,17 +90,17 @@ function Room(): JSX.Element {
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">
-                    To bookmarks{offer?.isFavorite}
+                    To bookmarks{offer.isFavorite}
                   </span>
                 </button>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: '80%' }}></span>
+                  <span style={{ width: `${Math.round(offer.rating) * 20}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">
-                  {offer?.rating}
+                  {Math.round(offer.rating)}
                 </span>
               </div>
               <ul className="property__features">
@@ -133,28 +131,30 @@ function Room(): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                  <div className={`property__avatar-wrapper ${offer.host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
                     <img
                       className="property__avatar user__avatar"
-                      src={offer.host?.avatarUrl}
+                      src={`/${offer.host.avatarUrl}`}
                       width="100%"
                       height="100%"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    {offer?.host?.name}
+                    {offer.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer?.host?.isPro}
+                    {offer.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
-                  <p className="property__text">{offer.title}</p>
+                  <p className="property__text">{offer.description}</p>
                 </div>
               </div>
 
-              <section className="property__reviews reviews">
+              <Reviews/>
+
+              {/* <section className="property__reviews reviews">
                 <h2 className="reviews__title">
                   Reviews &middot;{' '}
                   <span className="reviews__amount">{comments.length}</span>
@@ -180,7 +180,7 @@ function Room(): JSX.Element {
                         <div className="reviews__rating rating">
                           <div className="reviews__stars rating__stars">
                             <span
-                              style={{ width: `${comment.rating * 20}%` }}
+                              style={{ width: `${Math.round(comment.rating) * 20}%` }}
                             >
                             </span>
                             <span className="visually-hidden">Rating</span>
@@ -195,7 +195,7 @@ function Room(): JSX.Element {
                   ))}
                 </ul>
                 {isAuth && <ReviewForm />}
-              </section>
+              </section> */}
             </div>
           </div>
           <section className="property__map map">
@@ -234,7 +234,7 @@ function Room(): JSX.Element {
                         </span>
                       </div>
                       <button
-                        className="place-card__bookmark-button place-card__bookmark-button--active button"
+                        className={`place-card__bookmark-button ${isAuth ? 'place-card__bookmark-button--active' : ''}  button`}
                         type="button"
                       >
                         <svg

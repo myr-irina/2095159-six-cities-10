@@ -201,13 +201,19 @@ void,
     extra: AxiosInstance;
   }
 >('data/changeFavoriteStatusAction', async ({ hotelId , isFavorite }, { dispatch, extra: api }) => {
-  const isFavoriteStatus = isFavorite ? 1 : 0;
-  const { data } = await api.post<Offer>(
-    `${APIRoute.Favorite}/${hotelId}/${isFavoriteStatus}`
-  );
+  try {
+    const isFavoriteStatus = isFavorite ? 1 : 0;
+    const { data } = await api.post<Offer>(
+      `${APIRoute.Favorite}/${hotelId}/${isFavoriteStatus}`
+    );
 
-  dispatch(setDataLoadedStatus(true));
-  dispatch(setFavoriteOffer(data));
-  dispatch(updateFavoriteOffers({offer: data, isFavorite}));
-  dispatch(setDataLoadedStatus(false));
+    dispatch(setDataLoadedStatus(true));
+    dispatch(setFavoriteOffer(data));
+    dispatch(updateFavoriteOffers({offer: data, isFavorite}));
+    dispatch(setDataLoadedStatus(false));
+  } catch {
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(redirectToRoute(AppRoute.Login));
+  }
+
 });

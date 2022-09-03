@@ -151,6 +151,8 @@ function FeedbackForm() {
         id="comment"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
+        minLength={50}
+        maxLength={300}
       >
       </textarea>
       <div className="reviews__button-wrapper">

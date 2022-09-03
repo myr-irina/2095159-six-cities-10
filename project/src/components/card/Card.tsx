@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
+import { getAuthStatus } from '../../store/selectors';
 import { Offer } from '../../types/offer';
+import { AuthorizationStatus } from '../const';
 
 type CardScreenProps = {
   offer: Offer;
@@ -23,11 +25,15 @@ function Card({ offer, onListItemHover }: CardScreenProps) {
     setIsFavorite((prev)=>!prev);
   };
 
+  const authStatus = useAppSelector(getAuthStatus);
+  const isAuth = authStatus === AuthorizationStatus.Auth;
+
   return (
     <article className="cities__card place-card" onMouseEnter={listItemHoverHandler}>
-      <div className="place-card__mark">
-        <span>Premium {offer.isPremium}</span>
-      </div>
+      {offer.isPremium &&
+      <div className='place-card__mark'>
+        <span>Premium</span>
+      </div> }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${offer.id}`}>
           <img
@@ -45,7 +51,7 @@ function Card({ offer, onListItemHover }: CardScreenProps) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : 'place-card__bookmark-button'}  button`} type="button" onClick={changeFavoriteHandler}>
+          <button className={`place-card__bookmark-button ${isFavorite && isAuth ? 'place-card__bookmark-button--active' : 'place-card__bookmark-button'}  button`} type="button" onClick={changeFavoriteHandler}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark">{offer.isFavorite}</use>
             </svg>
@@ -54,7 +60,7 @@ function Card({ offer, onListItemHover }: CardScreenProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }}></span>
+            <span style={{ width: `${Math.round(offer.rating) * 20}%` }}></span>
             <span className="visually-hidden">Rating{offer.rating}</span>
           </div>
         </div>

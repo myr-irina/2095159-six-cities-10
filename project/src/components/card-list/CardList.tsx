@@ -16,7 +16,7 @@ function CardList({
   return (
     <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <li key={offer.id}>
+        <li key={offer.id} style={{listStyleType: 'none'}}>
           <Card
             offer={offer}
             key={offer.id}
