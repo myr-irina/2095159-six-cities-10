@@ -4,14 +4,11 @@ import { Offer } from '../../types/offer';
 
 type CardFavoriteScreenProps = {
   offer: Offer;
-  onMouseOver: () => void;
-  isActive: boolean;
 };
 
 function CardFavorite({
   offer,
-  onMouseOver,
-  isActive,
+
 }: CardFavoriteScreenProps) {
   const dispatch = useAppDispatch();
 
@@ -24,7 +21,6 @@ function CardFavorite({
     <article
       className="favorites__card place-card"
       style={{ marginBottom: '35px' }}
-      onMouseOver={onMouseOver}
     >
       <div className="place-card__mark">
         <span>Premium</span>

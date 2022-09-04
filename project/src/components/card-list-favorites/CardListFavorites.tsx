@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import CardFavorite from '../card-favorite/CardFavorite';
 
@@ -9,7 +8,6 @@ type CardListFavoritesScreenProps = {
 function CardListFavorites({
   offers,
 }: CardListFavoritesScreenProps): JSX.Element {
-  const [isActiveCard, setIsActiveCard] = useState<number>(1);
 
   return (
     <ul style={{ padding: '0' }}>
@@ -19,7 +17,7 @@ function CardListFavorites({
           key={offer.id}
           style={{ listStyleType: 'none', margin: '0' }}
         >
-          <CardFavorite offer={offer} onMouseOver={() => setIsActiveCard(offer.id)} isActive={isActiveCard === offer.id} />
+          <CardFavorite offer={offer} />
         </li>
       ))}
     </ul>

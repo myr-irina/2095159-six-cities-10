@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import {
   getFavoriteOffers,
-} from './../../store/offers-process/selectors';
+} from '../../store/offers-process/selectors';
 import { getUser, getAuthStatus } from '../../store/user-process/selectors';
 import { APIRoute, AuthorizationStatus } from '../const';
 
@@ -30,7 +30,6 @@ function Header() {
               <li className="header__nav-item user">
                 <div
                   className="header__nav-link header__nav-link--profile"
-                  href="/"
                 >
                   <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                   <Link
@@ -38,7 +37,7 @@ function Header() {
                     to={APIRoute.Favorite}
                   >
                     <span className="header__user-name user__name">
-                      {isAuth ? user.email : ''}
+                      {isAuth && user ? user.email : ''}
                     </span>
                   </Link>
                   <span className="header__favorite-count">
