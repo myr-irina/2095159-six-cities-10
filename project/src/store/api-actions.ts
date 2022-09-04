@@ -2,20 +2,12 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import {
-  setOffers,
-  requireAuthorization,
-  setDataLoadedStatus,
-  setError,
-  setFavoriteOffers,
-  setOffer,
   redirectToRoute,
-  setUser,
-  setComments,
-  setOffersNearby,
-  setFavoriteOffer,
-  updateFavoriteOffers,
-  setLoadingStatus,
 } from './action';
+import {setFavoriteOffers, setFavoriteOffer, updateFavoriteOffers } from './offers-process/offers-process';
+import {setOffers} from './offers-process/offers-process';
+import { setOffer, setComments, setOffersNearby} from './offer-process/offer-process';
+import { setError, setDataLoadedStatus, setLoadingStatus } from './app-process/app-process';
 import { saveToken, dropToken } from '../components/services/token';
 import {
   APIRoute,
@@ -25,10 +17,11 @@ import {
 } from '../components/const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import { Offer } from '../types/offer.js';
+import { Offer } from '../types/offer';
 import { store } from './';
-import { CommentsData } from '../types/comments-data.js';
-import { CommentData } from '../types/comment-data.js';
+import { CommentsData } from '../types/comments-data';
+import { CommentData } from '../types/comment-data';
+import { requireAuthorization, setUser } from './user-process/user-process';
 
 
 export const clearErrorAction = createAsyncThunk('data/clearError', () => {
@@ -183,7 +176,6 @@ export const fetchFavoriteOffersAction = createAsyncThunk<
   }
 >('data/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
   dispatch(setDataLoadedStatus(true));
-  dispatch(requireAuthorization(AuthorizationStatus.Auth));
   const { data } = await api.get<Offer[]>(APIRoute.Favorite);
   dispatch(setFavoriteOffers(data));
   dispatch(setDataLoadedStatus(false));

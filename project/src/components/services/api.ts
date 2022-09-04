@@ -3,6 +3,7 @@ import { getToken } from './token';
 import { processErrorHandle } from './process-error-handle';
 import { StatusCodes } from 'http-status-codes';
 
+
 const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
@@ -32,7 +33,7 @@ export const createAPI = (): AxiosInstance => {
   api.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
-      if (error.response && shouldDisplayError(error.response)) {
+      if (error.response && shouldDisplayError(error.response) && error.response.status !== 401) {
         processErrorHandle(error.response.data.error);
       }
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions';
-import { getAuthStatus } from '../../store/selectors';
+import { getAuthStatus } from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
 import { AuthorizationStatus } from '../const';
 

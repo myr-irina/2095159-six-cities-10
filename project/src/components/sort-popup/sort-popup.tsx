@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
-import { setSort } from '../../store/action';
-import { getSort } from '../../store/selectors';
+import { setSort } from '../../store/app-process/app-process';
+import { getSort } from '../../store/app-process/selectors';
 import { SortType } from '../../types/sort-type';
 
 const SORT_MAP: {id: SortType, value: string}[] = [

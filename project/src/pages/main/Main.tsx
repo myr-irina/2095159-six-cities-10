@@ -4,10 +4,11 @@ import Map from '../../components/map/Map';
 import Header from '../../components/header/Header';
 import { useAppSelector } from '../../hooks';
 import {
-  getActiveCity,
   getOffers,
   getSortedOffers,
-} from '../../store/selectors';
+} from '../../store/offers-process/selectors';
+
+import { getActiveCity } from '../../store/app-process/selectors';
 import CityList from '../../components/city-list/cityList';
 import { useDispatch } from 'react-redux';
 import {

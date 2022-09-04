@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setActiveCity } from '../../store/action';
-import { getActiveCity } from '../../store/selectors';
+import { setActiveCity } from '../../store/app-process/app-process';
+import { getActiveCity } from '../../store/app-process/selectors';
 import { tabs } from '../const';
 
 function CityList() {

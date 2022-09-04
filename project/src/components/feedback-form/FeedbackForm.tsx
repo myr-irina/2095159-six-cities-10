@@ -9,9 +9,6 @@ function FeedbackForm() {
     comment: '',
     rating: '0',
   });
-  // eslint-disable-next-line no-console
-  console.log(formData);
-
 
   const dispatch = useAppDispatch();
   const { hotelId } = useParams();

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import CardListFavorites from '../../components/card-list-favorites/CardListFavorites';
@@ -6,8 +5,7 @@ import Header from '../../components/header/Header';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';
-import { getGrouppedFavoriteOffers } from '../../store/selectors';
-// import { Offer } from '../../types/offer';
+import { getGrouppedFavoriteOffers } from '../../store/offers-process/selectors';
 import { AppDispatch } from '../../types/state';
 
 function Favorites() {

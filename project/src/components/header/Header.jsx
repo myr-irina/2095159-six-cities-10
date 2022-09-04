@@ -3,10 +3,9 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { logoutAction } from '../../store/api-actions';
 import {
-  getUser,
-  getAuthStatus,
   getFavoriteOffers,
-} from './../../store/selectors';
+} from './../../store/offers-process/selectors';
+import { getUser, getAuthStatus } from '../../store/user-process/selectors';
 import { APIRoute, AuthorizationStatus } from '../const';
 
 

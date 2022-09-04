@@ -9,7 +9,8 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
 import { useAppSelector } from '../../hooks';
-import { getAuthStatus, getLoadingStatus } from '../../store/selectors';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import {getLoadingStatus} from '../../store/app-process/selectors';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
 
 function App(): JSX.Element {

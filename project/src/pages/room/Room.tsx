@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-// import ReviewForm from '../../components/feedback-form/FeedbackForm';
 import { useAppSelector } from '../../hooks';
 import {
-  getAuthStatus,
-  // getComments,
-  getLoadedData,
   getOffer,
   getOffersNearby,
-} from '../../store/selectors';
+} from '../../store/offer-process/selectors';
+import {getLoadedData} from '../../store/app-process/selectors';
+import {getAuthStatus} from '../../store/user-process/selectors';
 import {
   fetchCommentsAction,
   fetchOfferAction,
@@ -36,13 +34,12 @@ function Room(): JSX.Element {
   }, [dispatch, hotelId]);
 
   const offer = useAppSelector(getOffer);
-  // const comments = useAppSelector(getComments);
   const offersNearby = useAppSelector(getOffersNearby);
   const authStatus = useAppSelector(getAuthStatus);
   const isAuth = authStatus === AuthorizationStatus.Auth;
   const isLoading = useAppSelector(getLoadedData);
 
-  if(isLoading) {
+  if(isLoading || !offer) {
     return <LoadingScreen/>;
   }
 
