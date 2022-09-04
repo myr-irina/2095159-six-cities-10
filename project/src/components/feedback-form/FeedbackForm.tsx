@@ -9,6 +9,9 @@ function FeedbackForm() {
     comment: '',
     rating: '0',
   });
+  // eslint-disable-next-line no-console
+  console.log(formData);
+
 
   const dispatch = useAppDispatch();
   const { hotelId } = useParams();
@@ -33,13 +36,17 @@ function FeedbackForm() {
 
   const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (!formData.comment !== null && !formData.rating !== null && hotelId) {
-      onSubmit(hotelId, {
-        comment: formData.comment,
-        rating: formData.rating,
-      });
+    try {
+      if (!formData.comment !== null && !formData.rating !== null && hotelId) {
+        onSubmit(hotelId, {
+          comment: formData.comment,
+          rating: formData.rating,
+        });
+      }
+      setFormData({ ...formData, comment: '', rating: '0' });
+    } catch {
+      throw Error('Произошла ошибка при отправке формы');
     }
-    setFormData({ ...formData, comment: '', rating: '0' });
   };
 
   return (
@@ -164,7 +171,7 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!formData.comment !== null && !formData.rating}
+          disabled={formData.comment === '' && formData.rating === '0'}
         >
           Submit
         </button>

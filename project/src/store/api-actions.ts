@@ -14,7 +14,7 @@ import {
   setOffersNearby,
   setFavoriteOffer,
   updateFavoriteOffers,
-  // setLoadingStatus,
+  setLoadingStatus,
 } from './action';
 import { saveToken, dropToken } from '../components/services/token';
 import {
@@ -75,7 +75,7 @@ export const checkAuthAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
-  // dispatch(setLoadingStatus(true));
+  dispatch(setLoadingStatus(true));
   try {
     const { data } = await api.get(APIRoute.Login);
     dispatch(setUser(data));
@@ -83,7 +83,7 @@ export const checkAuthAction = createAsyncThunk<
   } catch {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
-  // dispatch(setLoadingStatus(false));
+  dispatch(setLoadingStatus(false));
 });
 
 export const loginAction = createAsyncThunk<
