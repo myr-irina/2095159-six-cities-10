@@ -8,7 +8,7 @@ import {
 import { getUser, getAuthStatus } from '../../store/user-process/selectors';
 import { APIRoute, AuthorizationStatus } from '../const';
 
-function Header() {
+function HeaderApp() {
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector(getAuthStatus);
@@ -66,4 +66,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default HeaderApp;
