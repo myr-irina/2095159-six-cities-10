@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CardList from '../../components/card-list/card-list';
-import Map from '../../components/map/map-app';
+import Map from '../../components/map/map';
 import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import {
