@@ -1,4 +1,4 @@
-import Card from '../card/card-app';
+import Card from '../card/card';
 import { Offer } from '../../types/offer';
 
 
