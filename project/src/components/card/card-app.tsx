@@ -11,6 +11,7 @@ type CardScreenProps = {
   onListItemHover: (listItemName: number) => void;
 };
 
+
 function Card({ offer, onListItemHover }: CardScreenProps) {
   const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
 
