@@ -1,4 +1,4 @@
-import Header from '../../components/header/header-app';
+import Header from '../../components/header/header';
 
 
 function MainEmpty() {
