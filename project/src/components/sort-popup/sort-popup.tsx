@@ -50,7 +50,7 @@ function SortPopup(){
       <span
         className="places__sorting-type"
         style={{paddingLeft: '5px'}}
-        tabIndex="0"
+        tabIndex={0}
         onClick={handlePopupClick}
       >
         {SORT_MAP.find(({id}) => currentSort === id)?.value}
@@ -67,7 +67,7 @@ function SortPopup(){
           <li
             key={id}
             className={`places__option ${currentSort === id ? 'places__option--active' : ''}`}
-            tabIndex="0"
+            tabIndex={0}
             onClick={()=> handleSort(id)}
           >
             {value}
