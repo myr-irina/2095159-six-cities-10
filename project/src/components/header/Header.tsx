@@ -54,7 +54,7 @@ function Header() {
                     dispatch(logoutAction());
                   }}
                 >
-                  <span className="header__signout" style={{padding: '0'}}>
+                  <span className="header__signout" style={{padding: '0', backgroundColor: 'transparent'}}>
                     {isAuth ? 'Sign out' : 'Sign in'}
                   </span>
                 </button>
