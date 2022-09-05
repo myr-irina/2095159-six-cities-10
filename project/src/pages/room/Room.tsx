@@ -15,8 +15,8 @@ import {
 } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
 import { AuthorizationStatus } from '../../components/const';
-import Map from '../../components/map/Map';
-import Header from '../../components/header/Header';
+import Map from '../../components/map/map';
+import Header from '../../components/header/header';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Reviews from '../../components/reviews/reviews';

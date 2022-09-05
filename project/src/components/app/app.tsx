@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import Main from '../../pages/main/Main';
-import Login from '../../pages/login/Login';
-import Favorites from '../../pages/favorites/Favorites';
-import Room from '../../pages/room/Room';
+import Main from '../../pages/main/main';
+import Login from '../../pages/login/login';
+import Favorites from '../../pages/favorites/favorites';
+import Room from '../../pages/room/room';
 import { AppRoute } from '../const';
 import PrivateRoute from '../../components/private-routes/private-route';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';

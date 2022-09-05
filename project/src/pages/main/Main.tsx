@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import CardList from '../../components/card-list/CardList';
-import Map from '../../components/map/Map';
-import Header from '../../components/header/Header';
+import CardList from '../../components/card-list/card-list';
+import Map from '../../components/map/map';
+import Header from '../../components/header/header';
 import { useAppSelector } from '../../hooks';
 import {
   getOffers,
@@ -9,7 +9,7 @@ import {
 } from '../../store/offers-process/selectors';
 
 import { getActiveCity } from '../../store/app-process/selectors';
-import CityList from '../../components/city-list/cityList';
+import CityList from '../../components/city-list/city-list';
 import { useDispatch } from 'react-redux';
 import {
   fetchOffersAction,

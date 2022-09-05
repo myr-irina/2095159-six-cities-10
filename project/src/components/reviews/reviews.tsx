@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import FeedbackForm from '../../components/feedback-form/FeedbackForm';
+import FeedbackForm from '../feedback-form/feedback-form';
 import { getComments } from '../../store/offer-process/selectors';
 import {getAuthStatus} from '../../store/user-process/selectors';
 import { CommentsData } from '../../types/comments-data';

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import CardListFavorites from '../../components/card-list-favorites/CardListFavorites';
-import Header from '../../components/header/Header';
+import CardListFavorites from '../../components/card-list-favorites/card-list-favorites';
+import Header from '../../components/header/header';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/api-actions';

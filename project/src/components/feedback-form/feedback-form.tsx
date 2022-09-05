@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { addCommentAction } from '../../store/api-actions';
 import { CommentData } from '../../types/comment-data';
-import {Ratings} from './../const';
+import {Ratings} from '../const';
 
 function FeedbackForm() {
   const [formData, setFormData] = useState<CommentData>({
