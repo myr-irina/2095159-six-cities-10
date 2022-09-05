@@ -3,27 +3,33 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { addCommentAction } from '../../store/api-actions';
 import { CommentData } from '../../types/comment-data';
+import {Ratings} from './../const';
 
 function FeedbackForm() {
   const [formData, setFormData] = useState<CommentData>({
     comment: '',
-    rating: '0',
+    rating: Ratings.Default,
   });
+  const [isDisabled, setIsDisabled ] = useState(false);
 
   const dispatch = useAppDispatch();
   const { hotelId } = useParams();
 
+  const validateForm = (rating: Ratings, comment: string) => {
+    setIsDisabled(rating > Ratings.Default && comment.length >= 50);
+  };
+
   function handleInputFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLInputElement;
     const { name, value } = target;
-
+    validateForm(Number(value), formData.comment);
     setFormData({ ...formData, [name]: value });
   }
 
   function handleTextAreaFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLTextAreaElement;
     const { name, value } = target;
-
+    validateForm(formData.rating, value);
     setFormData({ ...formData, [name]: value });
   }
 
@@ -33,17 +39,14 @@ function FeedbackForm() {
 
   const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    try {
-      if (!formData.comment !== null && !formData.rating !== null && hotelId) {
-        onSubmit(hotelId, {
-          comment: formData.comment,
-          rating: formData.rating,
-        });
-      }
-      setFormData({ ...formData, comment: '', rating: '0' });
-    } catch {
-      throw Error('Произошла ошибка при отправке формы');
+
+    if (!formData.comment !== null && !formData.rating !== null && hotelId) {
+      onSubmit(hotelId, {
+        comment: formData.comment,
+        rating: formData.rating,
+      });
     }
+    setFormData({ comment: '', rating: Ratings.Default });
   };
 
   return (
@@ -59,6 +62,7 @@ function FeedbackForm() {
       </label>
       <div className="reviews__rating-form form__rating">
         <input
+          checked={formData.rating === Ratings.fiveStars}
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -77,6 +81,7 @@ function FeedbackForm() {
         </label>
 
         <input
+          checked={formData.rating === Ratings.fourStars}
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -95,6 +100,7 @@ function FeedbackForm() {
         </label>
 
         <input
+          checked={formData.rating === Ratings.threeStars}
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -113,6 +119,7 @@ function FeedbackForm() {
         </label>
 
         <input
+          checked={formData.rating === Ratings.twoStars}
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -131,6 +138,7 @@ function FeedbackForm() {
         </label>
 
         <input
+          checked={formData.rating === Ratings.oneStar}
           onChange={handleInputFieldChange}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -155,7 +163,6 @@ function FeedbackForm() {
         id="comment"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        minLength={50}
         maxLength={300}
       >
       </textarea>
@@ -168,7 +175,7 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formData.comment === '' && formData.rating === '0'}
+          disabled={!isDisabled}
         >
           Submit
         </button>

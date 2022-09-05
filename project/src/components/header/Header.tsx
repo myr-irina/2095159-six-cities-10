@@ -46,18 +46,18 @@ function Header() {
                 </div>
               </li>
               <li className="header__nav-item">
-                <Link
+                <button
                   className="header__nav-link"
+                  style={{cursor: 'pointer', border: 'none'}}
                   onClick={(evt) => {
                     evt.preventDefault();
                     dispatch(logoutAction());
                   }}
-                  to="#"
                 >
                   <span className="header__signout" style={{padding: '0'}}>
                     {isAuth ? 'Sign out' : 'Sign in'}
                   </span>
-                </Link>
+                </button>
               </li>
             </ul>
           </nav>

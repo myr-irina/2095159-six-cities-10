@@ -51,6 +51,7 @@ function Login(): JSX.Element {
                 <label className="visually-hidden">E-mail</label>
                 <input
                   className="login__input form__input"
+                  style={{outline: 'none'}}
                   ref={emailRef}
                   type="email"
                   name="email"
@@ -62,6 +63,7 @@ function Login(): JSX.Element {
                 <label className="visually-hidden">Password</label>
                 <input
                   className="login__input form__input"
+                  style={{outline: 'none'}}
                   ref={passwordRef}
                   type="password"
                   name="password"

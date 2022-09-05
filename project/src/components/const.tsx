@@ -45,3 +45,12 @@ export enum NameSpace {
   Offer = 'OFFER',
   Offers = 'OFFERS',
 }
+
+export enum Ratings {
+  Default = 0,
+  oneStar = 1,
+  twoStars = 2,
+  threeStars = 3,
+  fourStars = 4,
+  fiveStars = 5
+}
