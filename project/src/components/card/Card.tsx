@@ -12,7 +12,7 @@ type CardScreenProps = {
 };
 
 function Card({ offer, onListItemHover }: CardScreenProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
 
   const listItemHoverHandler = (event: React.MouseEvent<HTMLInputElement>) => {
     event.preventDefault();

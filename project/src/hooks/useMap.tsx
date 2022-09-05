@@ -30,6 +30,8 @@ function useMap(
 
       setMap(instance);
       isRenderedRef.current = true;
+    } else {
+      map && map.setView({ lat: city.location.latitude, lng: city.location.longitude }, city.location.zoom, { animate: true, duration: 0.1 });
     }
   }, [mapRef, map, city]);
 

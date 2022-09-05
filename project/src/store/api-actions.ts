@@ -22,6 +22,7 @@ import { store } from './';
 import { CommentsData } from '../types/comments-data';
 import { CommentData } from '../types/comment-data';
 import { requireAuthorization, setUser } from './user-process/user-process';
+import { processErrorHandle } from '../components/services/process-error-handle';
 
 
 export const clearErrorAction = createAsyncThunk('data/clearError', () => {
@@ -110,6 +111,7 @@ export const logoutAction = createAsyncThunk<
   await api.delete(APIRoute.Logout);
   dropToken();
   dispatch(setUser(null));
+  dispatch(setFavoriteOffers([]));
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   dispatch(redirectToRoute(AppRoute.Login));
 });
@@ -141,13 +143,15 @@ export const addCommentAction = createAsyncThunk<
 >(
   'data/addComment',
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    const { data } = await api.post<CommentsData[]>(
-      `${APIRoute.Comments}/${id}`,
-      { comment, rating }
-    );
-    dispatch(setDataLoadedStatus(true));
-    dispatch(setComments(data));
-    dispatch(setDataLoadedStatus(false));
+    try {
+      const { data } = await api.post<CommentsData[]>(
+        `${APIRoute.Comments}/${id}`,
+        { comment, rating }
+      );
+      dispatch(setComments(data));
+    } catch(err) {
+      processErrorHandle('Не получилось добавить отзыв.');
+    }
   }
 );
 

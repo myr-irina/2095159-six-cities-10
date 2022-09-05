@@ -10,20 +10,21 @@ function FeedbackForm() {
     comment: '',
     rating: Ratings.Default,
   });
-  const [isDisabled, setIsDisabled ] = useState(false);
+  const [isDisabled, setIsDisabled ] = useState(true);
+  const [isLoading, setIsLoading ] = useState(false);
 
   const dispatch = useAppDispatch();
   const { hotelId } = useParams();
 
   const validateForm = (rating: Ratings, comment: string) => {
-    setIsDisabled(rating > Ratings.Default && comment.length >= 50);
+    setIsDisabled(rating === Ratings.Default || comment.length < 50);
   };
 
   function handleInputFieldChange(event: React.ChangeEvent) {
     const target = event.target as HTMLInputElement;
     const { name, value } = target;
     validateForm(Number(value), formData.comment);
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: Number(value) });
   }
 
   function handleTextAreaFieldChange(event: React.ChangeEvent) {
@@ -33,8 +34,10 @@ function FeedbackForm() {
     setFormData({ ...formData, [name]: value });
   }
 
-  const onSubmit = (id: string, commentData: CommentData) => {
-    dispatch(addCommentAction({ id, ...commentData }));
+  const onSubmit = async (id: string, commentData: CommentData) => {
+    setIsLoading(true);
+    await dispatch(addCommentAction({ id, ...commentData }));
+    setIsLoading(false);
   };
 
   const handleSubmitForm = (evt: FormEvent<HTMLFormElement>) => {
@@ -45,8 +48,9 @@ function FeedbackForm() {
         comment: formData.comment,
         rating: formData.rating,
       });
+      setFormData({ comment: '', rating: Ratings.Default });
+      setIsDisabled(true);
     }
-    setFormData({ comment: '', rating: Ratings.Default });
   };
 
   return (
@@ -69,6 +73,7 @@ function FeedbackForm() {
           value="5"
           id="5-stars"
           type="radio"
+          disabled={isLoading}
         />
         <label
           htmlFor="5-stars"
@@ -88,6 +93,7 @@ function FeedbackForm() {
           value="4"
           id="4-stars"
           type="radio"
+          disabled={isLoading}
         />
         <label
           htmlFor="4-stars"
@@ -107,6 +113,7 @@ function FeedbackForm() {
           value="3"
           id="3-stars"
           type="radio"
+          disabled={isLoading}
         />
         <label
           htmlFor="3-stars"
@@ -126,6 +133,7 @@ function FeedbackForm() {
           value="2"
           id="2-stars"
           type="radio"
+          disabled={isLoading}
         />
         <label
           htmlFor="2-stars"
@@ -145,6 +153,7 @@ function FeedbackForm() {
           value="1"
           id="1-star"
           type="radio"
+          disabled={isLoading}
         />
         <label
           htmlFor="1-star"
@@ -164,6 +173,7 @@ function FeedbackForm() {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         maxLength={300}
+        disabled={isLoading}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -175,7 +185,7 @@ function FeedbackForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!isDisabled}
+          disabled={isDisabled || isLoading}
         >
           Submit
         </button>
