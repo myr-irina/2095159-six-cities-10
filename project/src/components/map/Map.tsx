@@ -10,6 +10,7 @@ type MapScreenProps = {
   selectedOfferId?: number;
 };
 
+
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
